@@ -1,0 +1,6 @@
+{
+  "name": "X1 ALZ",
+  "description": "Plataforma premium de apostas PvP para Cabal Neo com interface gamer premium, sorteio animado ao vivo, painel administrativo e histórico.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
