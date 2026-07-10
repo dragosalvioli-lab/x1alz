@@ -164,16 +164,38 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onShowSection
                 <div className="relative mb-4">
                   <UserIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-500 w-4.5 h-4.5" />
                   <input
-                    type="email"
+                    type="text"
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
-                    placeholder="seu@email.com"
+                    placeholder="seu@email.com ou usuário"
                     className="w-full bg-neutral-950 border border-neutral-800 rounded-lg py-3 pl-11 pr-4 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-cyan-500 transition-colors font-sans"
                   />
                 </div>
-                <label className="block text-neutral-400 text-xs font-mono uppercase tracking-wider mb-1.5">
-                  Senha
-                </label>
+                <div className="flex justify-between items-end mb-1.5">
+                  <label className="block text-neutral-400 text-xs font-mono uppercase tracking-wider">
+                    Senha
+                  </label>
+                  <button 
+                    type="button" 
+                    onClick={async () => {
+                      if (!loginEmail) {
+                        setError('Informe seu email ou usuário para recuperar a senha.');
+                        return;
+                      }
+                      const res = await db.recoverPassword(loginEmail);
+                      if (res.success) {
+                        setSuccessMsg('Email de recuperação enviado! Por favor, verifique sua caixa de entrada e também a CAIXA DE SPAM.');
+                        setError('');
+                      } else {
+                        setError(res.error || 'Erro ao recuperar senha.');
+                        setSuccessMsg('');
+                      }
+                    }}
+                    className="text-cyan-400 hover:text-cyan-300 text-xs transition-colors"
+                  >
+                    Esqueceu a senha?
+                  </button>
+                </div>
                 <div className="relative">
                   <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-500 w-4.5 h-4.5" />
                   <input

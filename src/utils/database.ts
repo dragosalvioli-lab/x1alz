@@ -5,7 +5,7 @@
 
 
 import { db as firestore, auth } from '../firebase';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, onAuthStateChanged, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, onAuthStateChanged, signOut, sendPasswordResetEmail } from 'firebase/auth';
 import { getDoc } from 'firebase/firestore';
 import { collection, doc, setDoc, onSnapshot, deleteDoc } from 'firebase/firestore';
 import { User, Room, Payment, Transaction, AdminLog, AppSettings, RankingEntry, RoomStatus } from '../types';
@@ -39,8 +39,8 @@ const SEED_USERS: User[] = [
   {
     id: 'user_admin_1',
     name: 'Administrador Geral',
-    gameNick: 'X1AlzAdmin',
-    email: 'admin@x1alz.com',
+    gameNick: 'x1alzadmin',
+    email: 'x1alzadmin@x1alz.com',
     role: 'admin',
     wins: 0,
     losses: 0,
@@ -90,7 +90,7 @@ export class X1Database {
   private setupFirebase() {
     onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
-        if (!firebaseUser.emailVerified && firebaseUser.email !== 'admin@x1alz.com') {
+        if (!firebaseUser.emailVerified && firebaseUser.email !== 'x1alzadmin@x1alz.com') {
           this.activeSession = null;
         } else {
           try {
@@ -213,8 +213,11 @@ export class X1Database {
   //
   async login(email: string, password: string): Promise<{ success: boolean; error?: string; user?: User }> {
     try {
+      if (email === 'x1alzadmin') {
+        email = 'x1alzadmin@x1alz.com';
+      }
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      if (!userCredential.user.emailVerified && userCredential.user.email !== 'admin@x1alz.com') {
+      if (!userCredential.user.emailVerified && userCredential.user.email !== 'x1alzadmin@x1alz.com') {
           await signOut(auth);
           return { success: false, error: 'Por favor, verifique seu email (verifique a caixa de spam).' };
       }
@@ -228,7 +231,45 @@ export class X1Database {
       }
       return { success: false, error: 'Usuário não encontrado no banco de dados.' };
     } catch (e: any) {
+      if (e.code === 'auth/invalid-credential' && email === 'x1alzadmin@x1alz.com') {
+        // Try creating the admin account if it doesn't exist yet
+        try {
+          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          const uData: User = {
+            id: userCredential.user.uid,
+            name: 'Administrador Geral',
+            gameNick: 'x1alzadmin',
+            email: email,
+            role: 'admin',
+            wins: 0,
+            losses: 0,
+            totalBet: 0,
+            profit: 0,
+            streak: 0,
+            maxStreak: 0,
+            createdAt: new Date().toISOString()
+          };
+          await setDoc(doc(firestore, 'users', userCredential.user.uid), uData);
+          this.activeSession = uData;
+          this.notify();
+          return { success: true, user: uData };
+        } catch (createError) {
+          return { success: false, error: "Credenciais inválidas ou erro no login." };
+        }
+      }
       return { success: false, error: "Credenciais inválidas ou erro no login." };
+    }
+  }
+
+  async recoverPassword(email: string): Promise<{ success: boolean; error?: string }> {
+    try {
+      if (email === 'x1alzadmin') {
+        email = 'x1alzadmin@x1alz.com';
+      }
+      await sendPasswordResetEmail(auth, email);
+      return { success: true };
+    } catch (e: any) {
+      return { success: false, error: "Erro ao tentar enviar email de recuperação. Verifique o email informado." };
     }
   }
 
