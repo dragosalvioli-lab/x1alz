@@ -287,7 +287,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onShowSection
                   className="mt-0.5 rounded border-neutral-800 text-amber-500 focus:ring-amber-500 bg-neutral-950"
                 />
                 <label htmlFor="terms" className="text-xxs text-neutral-400 leading-normal select-none">
-                  Eu concordo com as regras de apostas, retenção de taxa administrativa de 5%, e me comprometo a enviar os ALZ para o personagem correspondente.
+                  Eu concordo com as regras de apostas, retenção de taxa administrativa de 3%, e me comprometo a enviar os ALZ para o personagem correspondente.
                 </label>
               </div>
               <GamerButton type="submit" variant="gold" className="w-full py-3 text-xs mt-2">

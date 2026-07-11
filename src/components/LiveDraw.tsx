@@ -25,7 +25,7 @@ export const LiveDraw: React.FC<LiveDrawProps> = ({ room, currentUser, onFinishe
     if (!room.countdownStartedAt) return 0;
     const startTime = new Date(room.countdownStartedAt).getTime();
     const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
-    const totalSeconds = 5 * 60; // 5 minutes
+    const totalSeconds = 2 * 60; // 2 minutes
     const remaining = totalSeconds - elapsedSeconds;
     return remaining > 0 ? remaining : 0;
   };
@@ -361,7 +361,7 @@ export const LiveDraw: React.FC<LiveDrawProps> = ({ room, currentUser, onFinishe
                 Contagem Regressiva do Duelo
               </h3>
               <p className="text-xs text-neutral-400 leading-relaxed font-sans">
-                Os jogadores têm 5 minutos para se posicionarem. A roleta rodará automaticamente quando o tempo zerar.
+                Os jogadores têm 2 minutos para se posicionarem. A roleta rodará automaticamente quando o tempo zerar.
               </p>
             </div>
 
@@ -419,7 +419,7 @@ export const LiveDraw: React.FC<LiveDrawProps> = ({ room, currentUser, onFinishe
             <div className="w-full bg-neutral-950 h-2 border border-neutral-800 rounded-full overflow-hidden">
               <div 
                 className="bg-cyan-500 h-full transition-all duration-1000 shadow-[0_0_8px_#00E5FF]"
-                style={{ width: `${(secondsLeft / 300) * 100}%` }}
+                style={{ width: `${(secondsLeft / 120) * 100}%` }}
               />
             </div>
 

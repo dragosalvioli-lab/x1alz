@@ -100,9 +100,9 @@ export const InfoSection: React.FC<InfoSectionProps> = ({ section, onClose }) =>
                 </div>
 
                 <div className="bg-neutral-950 border border-neutral-800 rounded-xl p-4 space-y-1.5 mt-2">
-                  <h5 className="font-display font-bold text-cyan-400 text-xs uppercase">Por que a taxa administrativa de 5%?</h5>
+                  <h5 className="font-display font-bold text-cyan-400 text-xs uppercase">Por que a taxa administrativa de {db.getSettings().houseFeePercent}%?</h5>
                   <p className="text-neutral-400 text-xxs leading-relaxed">
-                    A taxa cobrada pela plataforma (5% descontada do montante bruto total) serve para financiar os custos de hospedagem do portal, remunerar o tempo de plantão dos administradores responsáveis por liberar as partidas in-game, e financiar eventos promocionais de guilda.
+                    A taxa cobrada pela plataforma ({db.getSettings().houseFeePercent}% descontada do montante bruto total) serve para financiar os custos de hospedagem do portal, remunerar o tempo de plantão dos administradores responsáveis por liberar as partidas in-game, e financiar eventos promocionais de guilda.
                   </p>
                 </div>
               </div>

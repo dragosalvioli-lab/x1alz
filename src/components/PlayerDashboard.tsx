@@ -217,7 +217,7 @@ export const PlayerDashboard: React.FC<PlayerDashboardProps> = ({
           <span className={`text-lg font-mono font-bold block mt-1.5 ${user.profit >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
             {user.profit >= 0 ? '+' : ''}{formatALZ(user.profit)}
           </span>
-          <span className="text-xxs text-neutral-400 block mt-1">Descontadas as taxas de 5%</span>
+          <span className="text-xxs text-neutral-400 block mt-1">Descontadas as taxas de {db.getSettings().houseFeePercent}%</span>
         </div>
 
         <div className="p-5 bg-neutral-900 border border-neutral-800 rounded-xl relative overflow-hidden group hover:border-amber-500/20 transition-all shadow-md">
@@ -294,7 +294,7 @@ export const PlayerDashboard: React.FC<PlayerDashboardProps> = ({
               <div className="flex gap-2.5">
                 <span className="w-5 h-5 rounded bg-neutral-800 text-neutral-300 font-mono flex items-center justify-center font-bold shrink-0">4</span>
                 <p>
-                  <span className="font-bold text-neutral-200 uppercase">Sorteio:</span> Uma roleta animada de 5 segundos decidirá o vencedor. O prêmio líquido (menos 5% de taxa da casa) é depositado na conta da plataforma do vencedor para resgate posterior in-game.
+                  <span className="font-bold text-neutral-200 uppercase">Sorteio:</span> Uma roleta animada decidirá o vencedor. O prêmio líquido (menos {db.getSettings().houseFeePercent}% de taxa da casa) é depositado na conta da plataforma do vencedor para resgate posterior in-game.
                 </p>
               </div>
             </div>
@@ -716,11 +716,11 @@ export const PlayerDashboard: React.FC<PlayerDashboardProps> = ({
                     </span>
                   </div>
                   <div className="flex justify-between text-red-400">
-                    <span>Taxa da Casa (5%):</span>
+                    <span>Taxa da Casa ({db.getSettings().houseFeePercent}%):</span>
                     <span>
                       -{isCustom 
-                        ? formatALZ(parseFloat(customAmount || '0') * 1000000 * 2 * 0.05) 
-                        : formatALZ(betAmountOption * 2 * 0.05)}
+                        ? formatALZ(parseFloat(customAmount || '0') * 1000000 * 2 * (db.getSettings().houseFeePercent / 100)) 
+                        : formatALZ(betAmountOption * 2 * (db.getSettings().houseFeePercent / 100))}
                     </span>
                   </div>
                   <div className="h-[1px] bg-neutral-800 my-1" />

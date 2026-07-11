@@ -97,7 +97,7 @@ export interface AdminLog {
 export interface AppSettings {
   openingHour: string; // "12:00"
   closingHour: string; // "18:00"
-  houseFeePercent: number; // 5
+  houseFeePercent: number; // 3
   adminCharName: string; // "X1Alz"
   welcomeMessage: string;
   isBypassActive: boolean; // Developer mode to override 12h-18h schedule for easy evaluation

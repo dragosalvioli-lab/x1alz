@@ -28,10 +28,10 @@ export const simulateHash = (password: string): string => {
 const DEFAULT_SETTINGS: AppSettings = {
   openingHour: '12:00',
   closingHour: '18:00',
-  houseFeePercent: 5,
+  houseFeePercent: 3,
   adminCharName: 'X1Alz',
   welcomeMessage: 'Bem-vindo ao X1 ALZ! A maior arena PvP de apostas de Cabal Neo.',
-  isBypassActive: false
+  isBypassActive: true
 };
 
 // Seed Players

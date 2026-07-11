@@ -232,7 +232,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           <div className="absolute top-0 right-0 p-3 opacity-10">
             <TrendingUp className="w-14 h-14 text-amber-400" />
           </div>
-          <span className="text-xxs font-mono text-neutral-500 uppercase tracking-wider block">Lucro Casa (Taxa 5%)</span>
+          <span className="text-xxs font-mono text-neutral-500 uppercase tracking-wider block">Lucro Casa (Taxa {db.getSettings().houseFeePercent}%)</span>
           <span className="text-xl font-mono font-bold text-amber-400 block mt-1">{formatALZ(metrics.totalProfit)}</span>
           <span className="text-xxs text-neutral-400 block mt-1">Hoje: <strong className="text-amber-400 font-mono">{formatALZ(metrics.profitToday)}</strong></span>
         </div>
