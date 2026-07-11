@@ -440,10 +440,15 @@ export default function App() {
           ) : (
             <>
               {/* If time restricted is CLOSED, render lock countdown screen */}
-              {(!systemOpen && !forceAuth && (!user || user.role !== 'admin')) ? (
+              {((!systemOpen && !forceAuth && !user) || (!systemOpen && user && user.role !== 'admin')) ? (
                 <CountdownBanner 
                   onStatusChange={() => setSystemOpen(db.isSystemOpen().isOpen)} 
-                  onAdminLoginRequest={() => setForceAuth(true)}
+                  onAdminLoginRequest={() => {
+                    if (user && user.role !== 'admin') {
+                      handleLogout();
+                    }
+                    setForceAuth(true);
+                  }}
                 />
               ) : (
                 /* Route: Auth screen vs Player Dashboard vs Admin Dashboard */
@@ -452,6 +457,7 @@ export default function App() {
                     <AuthScreen 
                       onSuccess={handleAuthSuccess}
                       onShowSection={(sec) => setInfoSection(sec)}
+                      adminOnly={!systemOpen && forceAuth}
                     />
                   ) : user.role === 'admin' ? (
                     <AdminDashboard

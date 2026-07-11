@@ -11,9 +11,10 @@ import { GamerButton, GamerPanel, GamerBadge } from './GamerCard';
 interface AuthScreenProps {
   onSuccess: (user: any) => void;
   onShowSection: (section: 'rules' | 'about' | 'history' | 'ranking') => void;
+  adminOnly?: boolean;
 }
 
-export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onShowSection }) => {
+export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onShowSection, adminOnly }) => {
   const [isLogin, setIsLogin] = useState(true);
   
   // Login Form
@@ -43,6 +44,11 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onShowSection
 
     const res = await db.login(loginEmail, loginPassword);
     if (res.success) {
+      if (adminOnly && res.user?.role !== 'admin') {
+        setError('Acesso restrito apenas para administradores fora do horário de funcionamento.');
+        db.logout();
+        return;
+      }
       // Don't call onSuccess manually if we are listening to db changes
       // or we can call onSuccess(res.user)
       if (onSuccess && res.user) onSuccess(res.user);
@@ -55,6 +61,11 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onShowSection
     e.preventDefault();
     setError('');
     setSuccessMsg('');
+
+    if (adminOnly) {
+      setError('Cadastro de novos usuários bloqueado fora do horário de funcionamento.');
+      return;
+    }
 
     if (!regEmail || !regPassword || !regNick || !regGuild) {
       setError('Por favor, preencha todos os campos do cadastro.');
