@@ -11,9 +11,10 @@ import { GamerButton, GamerPanel } from './GamerCard';
 interface CountdownBannerProps {
   onStatusChange?: () => void;
   isAdmin?: boolean;
+  onAdminLoginRequest?: () => void;
 }
 
-export const CountdownBanner: React.FC<CountdownBannerProps> = ({ onStatusChange, isAdmin }) => {
+export const CountdownBanner: React.FC<CountdownBannerProps> = ({ onStatusChange, isAdmin, onAdminLoginRequest }) => {
   const [status, setStatus] = useState(db.isSystemOpen());
   const [countdownString, setCountdownString] = useState('');
 
@@ -92,6 +93,14 @@ export const CountdownBanner: React.FC<CountdownBannerProps> = ({ onStatusChange
             <p className="text-4xl font-mono font-bold tracking-widest text-amber-400 drop-shadow-[0_0_10px_rgba(245,158,11,0.2)]">
               {countdownString || "Carregando..."}
             </p>
+          </div>
+          <div className="mt-8 relative z-10 flex justify-center">
+            <button
+              onClick={() => onAdminLoginRequest && onAdminLoginRequest()}
+              className="text-xs text-neutral-600 hover:text-neutral-400 font-mono transition-colors border-b border-transparent hover:border-neutral-500 pb-0.5 cursor-pointer"
+            >
+              Acesso Restrito (Admin)
+            </button>
           </div>
         </GamerPanel>
       </div>

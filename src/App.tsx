@@ -47,6 +47,7 @@ export default function App() {
   
   // Time status
   const [systemOpen, setSystemOpen] = useState(db.isSystemOpen().isOpen);
+  const [forceAuth, setForceAuth] = useState(false);
   
   // Developer Guidance Panel
   const [showDevPanel, setShowDevPanel] = useState(true);
@@ -89,6 +90,7 @@ export default function App() {
 
   const handleAuthSuccess = (loggedInUser: User) => {
     setUser(loggedInUser);
+    setForceAuth(false);
     sound.playSuccess();
   };
 
@@ -438,8 +440,11 @@ export default function App() {
           ) : (
             <>
               {/* If time restricted is CLOSED, render lock countdown screen */}
-              {!systemOpen ? (
-                <CountdownBanner onStatusChange={() => setSystemOpen(db.isSystemOpen().isOpen)} />
+              {(!systemOpen && !forceAuth && (!user || user.role !== 'admin')) ? (
+                <CountdownBanner 
+                  onStatusChange={() => setSystemOpen(db.isSystemOpen().isOpen)} 
+                  onAdminLoginRequest={() => setForceAuth(true)}
+                />
               ) : (
                 /* Route: Auth screen vs Player Dashboard vs Admin Dashboard */
                 <>
