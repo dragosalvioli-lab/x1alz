@@ -41,7 +41,7 @@ export default function App() {
   const [activeRoomDraw, setActiveRoomDraw] = useState<Room | null>(null);
   
   // Info overlays
-  const [infoSection, setInfoSection] = useState<'about' | 'rules' | 'how_to' | 'ranking' | 'history' | 'support' | null>(null);
+  const [infoSection, setInfoSection] = useState<'about' | 'rules' | 'how_to' | 'ranking' | 'history' | 'support' | 'chat' | null>(null);
   
   // Audio state
   const [isMuted, setIsMuted] = useState(sound.getMutedState());
@@ -203,6 +203,18 @@ export default function App() {
             <span className="font-medium uppercase tracking-wider text-xs">Dashboard</span>
           </button>
 
+          <button 
+            onClick={() => { setInfoSection('chat'); sound.playClick(); }}
+            className={`w-full group flex items-center gap-3 rounded-lg px-4 py-3 text-left transition-all cursor-pointer ${
+              infoSection === 'chat'
+                ? 'bg-gradient-to-r from-neon-cyan/20 to-transparent text-neon-cyan shadow-[inset_2px_0_0_0_#00E5FF]'
+                : 'text-gray-400 hover:text-white'
+            }`}
+          >
+            <MessageSquare className="h-5 w-5" />
+            <span className="font-medium uppercase tracking-wider text-xs">Chat da Arena</span>
+          </button>
+          
           <button 
             onClick={() => { setInfoSection('history'); sound.playClick(); }}
             className={`w-full group flex items-center gap-3 rounded-lg px-4 py-3 text-left transition-all cursor-pointer ${
@@ -410,6 +422,17 @@ export default function App() {
                 ⚔️ Arena
               </button>
               <button
+                onClick={() => { setInfoSection('chat'); sound.playClick(); }}
+                className={`px-3 py-1.5 rounded-lg border text-xxs font-mono font-bold uppercase shrink-0 transition-all cursor-pointer ${
+                  infoSection === 'chat'
+                    ? 'bg-neon-cyan/15 border-neon-cyan/40 text-neon-cyan shadow-[0_0_8px_rgba(0,229,255,0.1)]'
+                    : 'bg-neutral-900/60 border-neutral-800 text-neutral-400'
+                }`}
+              >
+                💬 Chat
+              </button>
+              
+              <button
                 onClick={() => { setInfoSection('history'); sound.playClick(); }}
                 className={`px-3 py-1.5 rounded-lg border text-xxs font-mono font-bold uppercase shrink-0 transition-all cursor-pointer ${
                   infoSection === 'history'
@@ -465,7 +488,11 @@ export default function App() {
           )}
 
           {/* Draw modal overlay gets priority */}
-          {activeRoomDraw ? (
+          {infoSection === 'chat' ? (
+            <div className="h-[calc(100vh-200px)] w-full">
+              <ChatBox currentUser={user} inline />
+            </div>
+          ) : activeRoomDraw ? (
             <LiveDraw
               room={activeRoomDraw}
               currentUser={user}
@@ -518,13 +545,13 @@ export default function App() {
     </div>
 
       {/* FLOATING OVERLAY DIALOGS */}
-      {infoSection && (
+      {infoSection && infoSection !== 'chat' && (
         <InfoSection
-          section={infoSection}
+          section={infoSection as any}
           onClose={() => { setInfoSection(null); sound.playClick(); }}
         />
       )}
-      <ChatBox currentUser={user} />
+      
     </div>
   );
 }
