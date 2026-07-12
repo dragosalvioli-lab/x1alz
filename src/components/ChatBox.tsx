@@ -4,7 +4,7 @@ import { db } from '../utils/database';
 import { User, ChatMessage } from '../types';
 
 interface ChatBoxProps {
-  currentUser: User;
+  currentUser: User | null;
 }
 
 export const ChatBox: React.FC<ChatBoxProps> = ({ currentUser }) => {
@@ -24,14 +24,14 @@ export const ChatBox: React.FC<ChatBoxProps> = ({ currentUser }) => {
       setGlobalMsgs(db.getGlobalMessages());
       
       // Admin sees all private msgs to group them, player sees their own
-      if (currentUser.role === 'admin') {
+      if (currentUser?.role === 'admin') {
         // Admin fetches all private messages for grouping (we can get all by getting them all)
         // Wait, database only has getPrivateMessages(userId), which gives msgs where sender or receiver is userId.
         // For admin, we should fetch all private messages where they are receiver or sender. Wait, the admin ID is usually 'user_admin_1'.
         // So `db.getPrivateMessages(currentUser.id)` will get all msgs sent to or from the admin.
-        setPrivateMsgs(db.getPrivateMessages(currentUser.id));
+        if (currentUser) setPrivateMsgs(db.getPrivateMessages(currentUser.id)); else setPrivateMsgs([]);
       } else {
-        setPrivateMsgs(db.getPrivateMessages(currentUser.id));
+        if (currentUser) setPrivateMsgs(db.getPrivateMessages(currentUser.id)); else setPrivateMsgs([]);
       }
     };
     
@@ -54,7 +54,7 @@ export const ChatBox: React.FC<ChatBoxProps> = ({ currentUser }) => {
     let receiverId: string | undefined = undefined;
     
     if (activeTab === 'private') {
-      if (currentUser.role === 'admin') {
+      if (currentUser?.role === 'admin') {
         if (!adminSelectedUserId) return; // Need to select a user first
         receiverId = adminSelectedUserId;
       } else {
@@ -62,19 +62,19 @@ export const ChatBox: React.FC<ChatBoxProps> = ({ currentUser }) => {
       }
     }
     
-    await db.sendChatMessage(currentUser.id, text.trim(), activeTab === 'private', receiverId);
+    if (!currentUser) return; await db.sendChatMessage(currentUser.id, text.trim(), activeTab === 'private', receiverId);
     setText('');
   };
 
   // Group private messages for admin
   const adminPrivateContacts = React.useMemo(() => {
-    if (currentUser.role !== 'admin') return [];
+    if (currentUser?.role !== 'admin') return [];
     const contacts = new Map<string, { userId: string; nick: string; lastMessage: string }>();
     
     privateMsgs.forEach(m => {
-      const otherId = m.senderId === currentUser.id ? m.receiverId : m.senderId;
-      const otherNick = m.senderId === currentUser.id ? 'Usuário' : m.senderNick;
-      if (otherId && otherId !== currentUser.id) {
+      const otherId = m.senderId === currentUser?.id ? m.receiverId : m.senderId;
+      const otherNick = m.senderId === currentUser?.id ? 'Usuário' : m.senderNick;
+      if (otherId && otherId !== currentUser?.id) {
         contacts.set(otherId, { userId: otherId, nick: otherNick, lastMessage: m.text });
       }
     });
@@ -87,7 +87,7 @@ export const ChatBox: React.FC<ChatBoxProps> = ({ currentUser }) => {
     return (
       <div className="flex-1 overflow-y-auto p-3 space-y-3 scrollbar-thin scrollbar-thumb-neutral-800">
         {messages.map((m) => {
-          const isMine = m.senderId === currentUser.id;
+          const isMine = m.senderId === currentUser?.id;
           return (
             <div key={m.id} className={`flex flex-col ${isMine ? 'items-end' : 'items-start'}`}>
               <div className="flex items-center gap-1.5 mb-1">
@@ -162,7 +162,7 @@ export const ChatBox: React.FC<ChatBoxProps> = ({ currentUser }) => {
       
       {activeTab === 'private' && (
         <>
-          {currentUser.role === 'admin' ? (
+          {currentUser?.role === 'admin' ? (
             !adminSelectedUserId ? (
               // Admin Contacts List
               <div className="flex-1 overflow-y-auto p-2 space-y-1">
@@ -209,23 +209,29 @@ export const ChatBox: React.FC<ChatBoxProps> = ({ currentUser }) => {
       )}
 
       {/* Input Area */}
-      {(activeTab === 'global' || (activeTab === 'private' && (currentUser.role !== 'admin' || adminSelectedUserId))) && (
-        <form onSubmit={handleSend} className="p-3 bg-neutral-950 border-t border-neutral-800 flex gap-2">
-          <input
-            type="text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Digite sua mensagem..."
-            className="flex-1 bg-[#0A0A0A] border border-neutral-800 rounded-lg px-3 py-2 text-xs text-neutral-200 focus:outline-none focus:border-cyan-500 transition-colors"
-          />
-          <button 
-            type="submit"
-            disabled={!text.trim()}
-            className="p-2 bg-neutral-900 border border-neutral-800 rounded-lg text-cyan-400 hover:bg-neutral-800 hover:border-cyan-500 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <Send className="w-4 h-4" />
-          </button>
-        </form>
+      {!currentUser ? (
+        <div className="p-3 bg-neutral-950 border-t border-neutral-800 flex justify-center text-xs text-neutral-500 font-mono">
+          Faça login para participar do chat.
+        </div>
+      ) : (
+        (activeTab === 'global' || (activeTab === 'private' && (currentUser?.role !== 'admin' || adminSelectedUserId))) && (
+          <form onSubmit={handleSend} className="p-3 bg-neutral-950 border-t border-neutral-800 flex gap-2">
+            <input
+              type="text"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              placeholder="Digite sua mensagem..."
+              className="flex-1 bg-[#0A0A0A] border border-neutral-800 rounded-lg px-3 py-2 text-xs text-neutral-200 focus:outline-none focus:border-cyan-500 transition-colors"
+            />
+            <button 
+              type="submit"
+              disabled={!text.trim()}
+              className="p-2 bg-neutral-900 border border-neutral-800 rounded-lg text-cyan-400 hover:bg-neutral-800 hover:border-cyan-500 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <Send className="w-4 h-4" />
+            </button>
+          </form>
+        )
       )}
     </div>
   );

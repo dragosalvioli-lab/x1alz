@@ -524,7 +524,7 @@ export default function App() {
           onClose={() => { setInfoSection(null); sound.playClick(); }}
         />
       )}
-      {user && <ChatBox currentUser={user} />}
+      <ChatBox currentUser={user} />
     </div>
   );
 }
