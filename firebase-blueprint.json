@@ -59,6 +59,18 @@
         { "name": "closingHour", "type": "string" },
         { "name": "isBypassActive", "type": "boolean" }
       ]
+    },
+    {
+      "collectionId": "messages",
+      "fields": [
+        { "name": "senderId", "type": "string" },
+        { "name": "senderNick", "type": "string" },
+        { "name": "senderRole", "type": "string" },
+        { "name": "text", "type": "string" },
+        { "name": "isPrivate", "type": "boolean" },
+        { "name": "receiverId", "type": "string", "optional": true },
+        { "name": "createdAt", "type": "string" }
+      ]
     }
   ]
 }
