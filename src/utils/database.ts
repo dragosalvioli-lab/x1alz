@@ -64,6 +64,7 @@ export class X1Database {
   private payments: Payment[] = [];
   private transactions: Transaction[] = [];
   private logs: AdminLog[] = [];
+  private chatMessages: import('../types').ChatMessage[] = [];
   private settings: AppSettings = DEFAULT_SETTINGS;
   private userPasswords: Record<string, string> = {}; // userId -> simulatedHash
   private activeSession: User | null = null;
@@ -131,6 +132,10 @@ export class X1Database {
         if (!snap.empty) {
           this.settings = snap.docs[0].data() as AppSettings;
         }
+        this.notify();
+      });
+      onSnapshot(collection(firestore, 'messages'), (snap) => {
+        this.chatMessages = snap.docs.map(d => d.data() as import('../types').ChatMessage).sort((a,b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
         this.notify();
       });
     } catch(err) { console.error("Auth failed:", err); }
@@ -364,6 +369,35 @@ export class X1Database {
 
   getLogs(): AdminLog[] {
     return this.logs;
+  }
+
+  getGlobalMessages(): import('../types').ChatMessage[] {
+    return this.chatMessages.filter(m => !m.isPrivate);
+  }
+
+  getPrivateMessages(userId: string): import('../types').ChatMessage[] {
+    return this.chatMessages.filter(m => m.isPrivate && (m.senderId === userId || m.receiverId === userId));
+  }
+
+  async sendChatMessage(userId: string, text: string, isPrivate: boolean, receiverId?: string): Promise<void> {
+    const user = this.users.find(u => u.id === userId);
+    if (!user) return;
+    
+    const msg: any = {
+      id: generateId(),
+      senderId: user.id,
+      senderNick: user.gameNick,
+      senderRole: user.role,
+      text,
+      isPrivate,
+      createdAt: new Date().toISOString()
+    };
+    
+    if (isPrivate) {
+      msg.receiverId = receiverId || 'user_admin_1';
+    }
+    
+    await setDoc(doc(firestore, 'messages', msg.id), msg);
   }
 
   // New Bet Room Creation

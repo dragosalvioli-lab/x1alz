@@ -103,6 +103,17 @@ export interface AppSettings {
   isBypassActive: boolean; // Developer mode to override 12h-18h schedule for easy evaluation
 }
 
+export interface ChatMessage {
+  id: string;
+  senderId: string;
+  senderNick: string;
+  senderRole: 'player' | 'admin';
+  text: string;
+  isPrivate: boolean;
+  receiverId?: string; 
+  createdAt: string;
+}
+
 export interface RankingEntry {
   userId: string;
   name: string;

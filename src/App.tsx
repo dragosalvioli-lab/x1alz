@@ -34,6 +34,7 @@ import { PlayerDashboard } from './components/PlayerDashboard';
 import { AdminDashboard } from './components/AdminDashboard';
 import { LiveDraw } from './components/LiveDraw';
 import { InfoSection } from './components/InfoModals';
+import { ChatBox } from './components/ChatBox';
 
 export default function App() {
   const [user, setUser] = useState<User | null>(db.getSession());
@@ -175,11 +176,19 @@ export default function App() {
             <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-neon-cyan to-gold-cabal p-[1px]">
               <div className="flex h-full w-full items-center justify-center rounded-lg bg-[#050505]">
                 <span className="text-xl font-black italic tracking-tighter text-neon-cyan">X1</span>
-              </div>
-            </div>
+                
+
+    </div>
+              
+
+    </div>
             <h1 className="text-xl font-bold tracking-widest text-white">ALZ</h1>
-          </div>
-        </div>
+            
+
+    </div>
+          
+
+    </div>
         
         <nav className="flex-1 space-y-1 px-4">
           <button 
@@ -261,9 +270,13 @@ export default function App() {
             <span className="flex items-center gap-1 text-neon-cyan">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-neon-cyan"></span> {systemOpen ? 'Online' : 'Fechado'}
             </span>
-          </div>
+            
+
+    </div>
           <div className="text-[11px] font-semibold text-gray-400 italic">"Sorte favorece os audazes"</div>
-        </div>
+          
+
+    </div>
       </aside>
 
       {/* MAIN LAYOUT WRAPPER */}
@@ -280,9 +293,13 @@ export default function App() {
             >
               <div className="p-2 bg-neon-cyan/10 border border-neon-cyan/30 rounded-lg">
                 <Swords className="w-4 h-4 text-neon-cyan" />
-              </div>
+                
+
+    </div>
               <span className="font-display font-black text-sm tracking-wider text-white">X1 ALZ</span>
-            </div>
+              
+
+    </div>
 
             {user ? (
               <div className="hidden sm:flex items-center gap-6">
@@ -294,7 +311,9 @@ export default function App() {
                       {user.role === 'admin' ? 'ADMIN' : 'LVL 190'}
                     </span>
                   </p>
-                </div>
+                  
+
+    </div>
                 <div className="h-8 w-px bg-white/10"></div>
                 <div className="space-y-0.5">
                   <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-mono">
@@ -312,21 +331,31 @@ export default function App() {
                       : `${(db.getPlayers().find(p => p.id === user.id)?.profit ?? user.profit) >= 0 ? '+' : ''}${formatALZ(db.getPlayers().find(p => p.id === user.id)?.profit ?? user.profit)}`
                     }
                   </p>
-                </div>
-              </div>
+                  
+
+    </div>
+                
+
+    </div>
             ) : (
               <div className="hidden sm:block space-y-0.5">
                 <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-mono">Plataforma Arena</p>
                 <p className="font-bold text-white uppercase text-xs tracking-wider">Cabal Neo PvP</p>
-              </div>
+                
+
+    </div>
             )}
-          </div>
+            
+
+    </div>
 
           <div className="flex items-center gap-4">
             <div className="flex flex-col items-end text-right">
               <span className="text-[9px] font-bold uppercase tracking-widest text-gray-500 font-mono">Operação</span>
               <span className="text-[11px] font-bold text-neon-cyan font-mono">12:00 - 18:00</span>
-            </div>
+              
+
+    </div>
 
             <div className="h-8 w-px bg-white/10 hidden sm:block"></div>
 
@@ -350,7 +379,9 @@ export default function App() {
                 </button>
               </>
             )}
-          </div>
+            
+
+    </div>
         </header>
 
         {/* MAIN BODY SCROLL AREA */}
@@ -360,7 +391,9 @@ export default function App() {
             <div className="mb-6 flex items-center gap-2.5 px-4 py-2.5 bg-[#0A0A0A]/40 border border-white/5 rounded-xl text-xxs font-mono text-gray-400">
               <Sparkles className="w-4 h-4 text-gold-cabal shrink-0 animate-pulse" />
               <span className="truncate">{db.getSettings().welcomeMessage}</span>
-            </div>
+              
+
+    </div>
           )}
 
           {/* Mobile Navigation Quick Links */}
@@ -426,7 +459,9 @@ export default function App() {
               >
                 💬 Suporte
               </button>
-            </div>
+              
+
+    </div>
           )}
 
           {/* Draw modal overlay gets priority */}
@@ -478,7 +513,9 @@ export default function App() {
           )}
 
         </main>
-      </div>
+        
+
+    </div>
 
       {/* FLOATING OVERLAY DIALOGS */}
       {infoSection && (
@@ -487,7 +524,7 @@ export default function App() {
           onClose={() => { setInfoSection(null); sound.playClick(); }}
         />
       )}
-
+      {user && <ChatBox currentUser={user} />}
     </div>
   );
 }
