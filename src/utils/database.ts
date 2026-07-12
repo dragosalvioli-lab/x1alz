@@ -8,7 +8,7 @@ import { db as firestore, auth } from '../firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, onAuthStateChanged, signOut, sendPasswordResetEmail } from 'firebase/auth';
 import { getDoc } from 'firebase/firestore';
 import { collection, doc, setDoc, onSnapshot, deleteDoc } from 'firebase/firestore';
-import { User, Room, Payment, Transaction, AdminLog, AppSettings, RankingEntry, RoomStatus } from '../types';
+import { User, Room, Payment, Transaction, AdminLog, AppSettings, RankingEntry, RoomStatus, ChatMessage } from '../types';
 
 // Helper to generate IDs
 const generateId = () => Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -64,7 +64,7 @@ export class X1Database {
   private payments: Payment[] = [];
   private transactions: Transaction[] = [];
   private logs: AdminLog[] = [];
-  private chatMessages: import('../types').ChatMessage[] = [];
+  private chatMessages: ChatMessage[] = [];
   private settings: AppSettings = DEFAULT_SETTINGS;
   private userPasswords: Record<string, string> = {}; // userId -> simulatedHash
   private activeSession: User | null = null;
@@ -135,7 +135,7 @@ export class X1Database {
         this.notify();
       });
       onSnapshot(collection(firestore, 'messages'), (snap) => {
-        this.chatMessages = snap.docs.map(d => d.data() as import('../types').ChatMessage).sort((a,b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+        this.chatMessages = snap.docs.map(d => d.data() as ChatMessage).sort((a,b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
         this.notify();
       });
     } catch(err) { console.error("Auth failed:", err); }
@@ -371,11 +371,11 @@ export class X1Database {
     return this.logs;
   }
 
-  getGlobalMessages(): import('../types').ChatMessage[] {
+  getGlobalMessages(): ChatMessage[] {
     return this.chatMessages.filter(m => !m.isPrivate);
   }
 
-  getPrivateMessages(userId: string): import('../types').ChatMessage[] {
+  getPrivateMessages(userId: string): ChatMessage[] {
     return this.chatMessages.filter(m => m.isPrivate && (m.senderId === userId || m.receiverId === userId));
   }
 
