@@ -125,3 +125,23 @@ export interface RankingEntry {
   streak: number;
   maxStreak: number;
 }
+
+export interface TicketMessage {
+  id: string;
+  senderId: string;
+  senderNick: string;
+  senderRole: 'player' | 'admin';
+  text: string;
+  createdAt: string;
+}
+
+export interface Ticket {
+  id: string;
+  userId: string;
+  userNick: string;
+  category: 'Recebimento de ALZ' | 'Bugs' | 'Outro';
+  status: 'open' | 'in_progress' | 'closed';
+  messages: TicketMessage[];
+  createdAt: string;
+  updatedAt: string;
+}

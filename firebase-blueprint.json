@@ -4,72 +4,239 @@
     {
       "collectionId": "users",
       "fields": [
-        { "name": "gameNick", "type": "string" },
-        { "name": "isAdmin", "type": "boolean" },
-        { "name": "createdAt", "type": "timestamp" },
-        { "name": "balance", "type": "number", "optional": true }
+        {
+          "name": "gameNick",
+          "type": "string"
+        },
+        {
+          "name": "isAdmin",
+          "type": "boolean"
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp"
+        },
+        {
+          "name": "balance",
+          "type": "number",
+          "optional": true
+        }
       ]
     },
     {
       "collectionId": "rooms",
       "fields": [
-        { "name": "code", "type": "string" },
-        { "name": "player1Id", "type": "string" },
-        { "name": "player1Nick", "type": "string" },
-        { "name": "player2Id", "type": "string", "optional": true },
-        { "name": "player2Nick", "type": "string", "optional": true },
-        { "name": "betAmount", "type": "number" },
-        { "name": "status", "type": "string" },
-        { "name": "winnerId", "type": "string", "optional": true },
-        { "name": "selectedSide1", "type": "string", "optional": true },
-        { "name": "selectedSide2", "type": "string", "optional": true },
-        { "name": "drawnSide", "type": "string", "optional": true },
-        { "name": "createdAt", "type": "timestamp" },
-        { "name": "expiresAt", "type": "timestamp", "optional": true }
+        {
+          "name": "code",
+          "type": "string"
+        },
+        {
+          "name": "player1Id",
+          "type": "string"
+        },
+        {
+          "name": "player1Nick",
+          "type": "string"
+        },
+        {
+          "name": "player2Id",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "player2Nick",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "betAmount",
+          "type": "number"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        },
+        {
+          "name": "winnerId",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "selectedSide1",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "selectedSide2",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "drawnSide",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp"
+        },
+        {
+          "name": "expiresAt",
+          "type": "timestamp",
+          "optional": true
+        }
       ]
     },
     {
       "collectionId": "payments",
       "fields": [
-        { "name": "userId", "type": "string" },
-        { "name": "userName", "type": "string" },
-        { "name": "amount", "type": "number" },
-        { "name": "status", "type": "string" },
-        { "name": "type", "type": "string" },
-        { "name": "pixKey", "type": "string", "optional": true },
-        { "name": "receiptUrl", "type": "string", "optional": true },
-        { "name": "date", "type": "timestamp" }
+        {
+          "name": "userId",
+          "type": "string"
+        },
+        {
+          "name": "userName",
+          "type": "string"
+        },
+        {
+          "name": "amount",
+          "type": "number"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "type": "string"
+        },
+        {
+          "name": "pixKey",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "receiptUrl",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "date",
+          "type": "timestamp"
+        }
       ]
     },
     {
       "collectionId": "transactions",
       "fields": [
-        { "name": "userId", "type": "string" },
-        { "name": "amount", "type": "number" },
-        { "name": "type", "type": "string" },
-        { "name": "description", "type": "string" },
-        { "name": "date", "type": "timestamp" }
+        {
+          "name": "userId",
+          "type": "string"
+        },
+        {
+          "name": "amount",
+          "type": "number"
+        },
+        {
+          "name": "type",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "date",
+          "type": "timestamp"
+        }
       ]
     },
     {
       "collectionId": "settings",
       "fields": [
-        { "name": "pixKey", "type": "string" },
-        { "name": "openingHour", "type": "string" },
-        { "name": "closingHour", "type": "string" },
-        { "name": "isBypassActive", "type": "boolean" }
+        {
+          "name": "pixKey",
+          "type": "string"
+        },
+        {
+          "name": "openingHour",
+          "type": "string"
+        },
+        {
+          "name": "closingHour",
+          "type": "string"
+        },
+        {
+          "name": "isBypassActive",
+          "type": "boolean"
+        }
       ]
     },
     {
       "collectionId": "messages",
       "fields": [
-        { "name": "senderId", "type": "string" },
-        { "name": "senderNick", "type": "string" },
-        { "name": "senderRole", "type": "string" },
-        { "name": "text", "type": "string" },
-        { "name": "isPrivate", "type": "boolean" },
-        { "name": "receiverId", "type": "string", "optional": true },
-        { "name": "createdAt", "type": "string" }
+        {
+          "name": "senderId",
+          "type": "string"
+        },
+        {
+          "name": "senderNick",
+          "type": "string"
+        },
+        {
+          "name": "senderRole",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "type": "string"
+        },
+        {
+          "name": "isPrivate",
+          "type": "boolean"
+        },
+        {
+          "name": "receiverId",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "createdAt",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "collectionId": "tickets",
+      "fields": [
+        {
+          "name": "userId",
+          "type": "string"
+        },
+        {
+          "name": "userNick",
+          "type": "string"
+        },
+        {
+          "name": "category",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        },
+        {
+          "name": "messages",
+          "type": "array"
+        },
+        {
+          "name": "createdAt",
+          "type": "string"
+        },
+        {
+          "name": "updatedAt",
+          "type": "string"
+        }
       ]
     }
   ]

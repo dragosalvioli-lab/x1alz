@@ -9,11 +9,13 @@ import { db, formatALZ, formatBrasiliaDateTime } from '../utils/database';
 import { GamerButton, GamerPanel, GamerBadge } from './GamerCard';
 
 interface InfoSectionProps {
+  currentUser?: import('../types').User | null;
   section: 'about' | 'rules' | 'how_to' | 'ranking' | 'history' | 'support';
   onClose: () => void;
 }
 
-export const InfoSection: React.FC<InfoSectionProps> = ({ section, onClose }) => {
+import { SupportTickets } from './SupportTickets';
+export const InfoSection: React.FC<InfoSectionProps> = ({ section, onClose, currentUser }) => {
   const [rankings, setRankings] = useState(db.getRankings());
   const [allFinishedRooms, setAllFinishedRooms] = useState(
     db.getRooms().filter(r => r.status === 'finished')

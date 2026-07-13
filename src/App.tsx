@@ -549,6 +549,7 @@ export default function App() {
         <InfoSection
           section={infoSection as any}
           onClose={() => { setInfoSection(null); sound.playClick(); }}
+          currentUser={user}
         />
       )}
       
