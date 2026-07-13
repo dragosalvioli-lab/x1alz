@@ -227,38 +227,7 @@ export const InfoSection: React.FC<InfoSectionProps> = ({ section, onClose, curr
 
             {/* SUPORTE (SUPPORT) */}
             {section === 'support' && (
-              <div className="space-y-4 text-neutral-300 text-sm">
-                <div className="flex justify-center mb-2">
-                  <div className="p-4 bg-amber-950/30 border border-amber-500/30 rounded-full shadow-[0_0_20px_rgba(245,158,11,0.15)]">
-                    <HeartHandshake className="w-12 h-12 text-amber-400 animate-pulse" />
-                  </div>
-                </div>
-                
-                <p className="text-center">
-                  Precisa de assistência técnica, tirar dúvidas sobre o trade de ALZ ou reportar algum problema? Nossa central de suporte está de prontidão.
-                </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                  <div className="p-4 bg-neutral-950 border border-neutral-800 rounded-xl space-y-1.5 text-left">
-                    <h4 className="font-display font-bold text-cyan-400 text-xs uppercase">E-mail de Suporte</h4>
-                    <p className="text-neutral-400 text-xxs font-mono">suporte@x1alz.com</p>
-                    <p className="text-neutral-500 text-xxs leading-normal">Respondemos solicitações em até 4 horas úteis dentro do período ativo.</p>
-                  </div>
-
-                  <div className="p-4 bg-neutral-950 border border-neutral-800 rounded-xl space-y-1.5 text-left">
-                    <h4 className="font-display font-bold text-amber-400 text-xs uppercase">Chat Guilda / Discord</h4>
-                    <p className="text-neutral-400 text-xxs font-mono">discord.gg/x1alz-cabal</p>
-                    <p className="text-neutral-500 text-xxs leading-normal">Comunidade ativa com chat exclusivo para agendamento de trades e apostas altas.</p>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-neutral-900 border border-neutral-800 rounded-lg text-neutral-400 text-xxs text-left flex items-start gap-2 mt-4">
-                  <HelpCircle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                  <span>
-                    Lembre-se: O administrador oficial <strong className="text-neutral-200">X1AlzAdmin</strong> nunca pedirá sua senha pessoal da plataforma ou suas credenciais de login do jogo Cabal Neo em nenhum canal de comunicação. Proteja sua conta.
-                  </span>
-                </div>
-              </div>
+              <SupportTickets currentUser={currentUser} />
             )}
 
           </div>

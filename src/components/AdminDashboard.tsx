@@ -188,6 +188,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           {[
             { id: 'rooms', label: 'Gerenciar Salas', icon: Sliders },
             { id: 'payments', label: 'Pagamentos Fila', icon: CheckCircle },
+            { id: 'tickets', label: 'Suporte (Tickets)', icon: HeartHandshake },
             { id: 'reports', label: 'Relatórios Financeiros', icon: FileText },
             { id: 'settings', label: 'Configurações', icon: SettingsIcon },
           ].map((tab) => {
