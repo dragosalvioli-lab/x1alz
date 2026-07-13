@@ -1,21 +1,9 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+const fs = require('fs');
+let code = fs.readFileSync('src/components/GamerCard.tsx', 'utf-8');
 
-import React from 'react';
-import { sound } from '../utils/audio';
-
-interface GamerPanelProps {
-  id?: string;
-  title?: string;
-  subtitle?: string;
-  children: React.ReactNode;
-  variant?: 'blue' | 'gold' | 'dark';
-  className?: string;
-}
-
-export const GamerPanel: React.FC<GamerPanelProps> = ({
+// GamerPanel modifications
+const oldGamerPanelRegex = /export const GamerPanel: React\.FC<GamerPanelProps> = \([\s\S]*?className = ''\n}\) => \{[\s\S]*?return \([\s\S]*?<\/div>\n  \);\n\};/;
+const newGamerPanel = `export const GamerPanel: React.FC<GamerPanelProps> = ({
   id,
   title,
   subtitle,
@@ -41,7 +29,7 @@ export const GamerPanel: React.FC<GamerPanelProps> = ({
   return (
     <div
       id={id}
-      className={`glass-panel rounded-sm relative overflow-hidden transition-all duration-300 ${borderClass} ${glowClass} ${className}`}
+      className={\`glass-panel rounded-sm relative overflow-hidden transition-all duration-300 \${borderClass} \${glowClass} \${className}\`}
     >
       {/* Tech accents */}
       <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/50"></div>
@@ -50,11 +38,11 @@ export const GamerPanel: React.FC<GamerPanelProps> = ({
       <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/50"></div>
 
       {(title || subtitle) && (
-        <div className={`px-6 py-3 flex flex-col gap-0.5 ${headerBg} backdrop-blur-md`}>
+        <div className={\`px-6 py-3 flex flex-col gap-0.5 \${headerBg} backdrop-blur-md\`}>
           {title && (
-            <h3 className={`font-display font-bold uppercase tracking-widest text-sm flex items-center gap-2 ${
-              variant === 'blue' ? 'text-neon-cyan text-glow-cyan' : variant === 'gold' ? 'text-gold-cabal text-glow-gold' : 'text-gray-100'
-            }`}>
+            <h3 className={\`font-display font-bold uppercase tracking-widest text-sm flex items-center gap-2 \${
+              variant === 'blue' ? 'text-neon-cyan text-glow-cyan' : variant === 'gold' ? 'text-gold-cabal text-glow-gold' : 'text-neutral-100'
+            }\`}>
               {variant === 'gold' && <span className="text-gold-cabal opacity-80">⟡</span>}
               {variant === 'blue' && <span className="text-neon-cyan opacity-80">❖</span>}
               {title}
@@ -68,19 +56,12 @@ export const GamerPanel: React.FC<GamerPanelProps> = ({
       </div>
     </div>
   );
-};
+};`;
+code = code.replace(oldGamerPanelRegex, newGamerPanel);
 
-interface GamerButtonProps {
-  id?: string;
-  children: React.ReactNode;
-  onClick?: () => void;
-  variant?: 'blue' | 'gold' | 'danger' | 'ghost' | 'dark';
-  className?: string;
-  type?: 'button' | 'submit' | 'reset';
-  disabled?: boolean;
-}
-
-export const GamerButton: React.FC<GamerButtonProps> = ({
+// GamerButton modifications
+const oldGamerButtonRegex = /export const GamerButton: React\.FC<GamerButtonProps> = \([\s\S]*?className = '',[\s\S]*?type = 'button',[\s\S]*?disabled = false\n\}\) => \{[\s\S]*?return \([\s\S]*?<\/button>\n  \);\n\};/;
+const newGamerButton = `export const GamerButton: React.FC<GamerButtonProps> = ({
   id,
   children,
   onClick,
@@ -125,24 +106,29 @@ export const GamerButton: React.FC<GamerButtonProps> = ({
       disabled={disabled}
       onMouseEnter={handleMouseEnter}
       onClick={handleCLick}
-      className={`${baseStyle} ${variantStyles[variant]} ${className}`}
+      className={\`\${baseStyle} \${variantStyles[variant]} \${className}\`}
     >
       {/* Shine effect on hover */}
       <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:animate-[shimmer_1.5s_infinite]"></div>
       {/* Bottom glow line */}
-      <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] ${glowColor} opacity-0 group-hover:w-3/4 group-hover:opacity-100 transition-all duration-300 shadow-[0_0_10px_currentColor]`}></div>
+      <div className={\`absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] \${glowColor} opacity-0 group-hover:w-3/4 group-hover:opacity-100 transition-all duration-300 shadow-[0_0_10px_currentColor]\`}></div>
       <span className="relative z-10 flex items-center gap-2 group-active:scale-95 transition-transform">{children}</span>
     </button>
   );
-};
+};`;
+code = code.replace(oldGamerButtonRegex, newGamerButton);
 
-interface GamerBadgeProps {
-  children: React.ReactNode;
-  variant?: 'blue' | 'gold' | 'neutral' | 'success' | 'danger';
-  className?: string;
+// Add shimmer animation to index.css
+const shimmerCss = `
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
 }
+`;
+fs.appendFileSync('src/index.css', shimmerCss);
 
-export const GamerBadge: React.FC<GamerBadgeProps> = ({
+// GamerBadge modifications
+const oldGamerBadgeRegex = /export const GamerBadge: React\.FC<GamerBadgeProps> = \([\s\S]*?className = ''\n\}\) => \{[\s\S]*?return \([\s\S]*?<\/span>\n  \);\n\};/;
+const newGamerBadge = `export const GamerBadge: React.FC<GamerBadgeProps> = ({
   children,
   variant = 'blue',
   className = ''
@@ -156,8 +142,11 @@ export const GamerBadge: React.FC<GamerBadgeProps> = ({
   };
 
   return (
-    <span className={`px-2.5 py-1 rounded-sm border text-[10px] font-mono uppercase tracking-widest font-bold backdrop-blur-md flex items-center justify-center ${styles[variant]} ${className}`}>
+    <span className={\`px-2.5 py-1 rounded-sm border text-[10px] font-mono uppercase tracking-widest font-bold backdrop-blur-md flex items-center justify-center \${styles[variant]} \${className}\`}>
       {children}
     </span>
   );
-};
+};`;
+code = code.replace(oldGamerBadgeRegex, newGamerBadge);
+
+fs.writeFileSync('src/components/GamerCard.tsx', code);

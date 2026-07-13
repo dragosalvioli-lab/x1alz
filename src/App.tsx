@@ -22,7 +22,7 @@ import {
   Zap,
   Lock,
   ChevronDown,
-  ChevronUp
+  ChevronUp, FileText, HeartHandshake
 } from 'lucide-react';
 import { User, Room } from './types';
 import { db, formatALZ } from './utils/database';
@@ -167,10 +167,10 @@ export default function App() {
   };
 
   return (
-    <div id="app-root" className="min-h-screen bg-[#050505] text-gray-100 flex font-sans selection:bg-neon-cyan selection:text-neutral-900 relative pb-16">
+    <div id="app-root" className="min-h-screen bg-transparent text-gray-100 flex font-sans selection:bg-neon-cyan selection:text-neutral-900 relative pb-16">
       
       {/* LEFT SIDEBAR NAVIGATION - DESKTOP FIRST */}
-      <aside className="hidden md:flex w-64 shrink-0 flex-col border-r border-white/10 bg-[#0A0A0A]">
+      <aside className="hidden md:flex w-72 shrink-0 flex-col border-r border-white/5 glass-panel z-10 shadow-[5px_0_30px_rgba(0,0,0,0.5)]">
         <div className="p-6">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-neon-cyan to-gold-cabal p-[1px]">
@@ -190,93 +190,93 @@ export default function App() {
 
     </div>
         
-        <nav className="flex-1 space-y-1 px-4">
+        <nav className="flex-1 space-y-1 px-4 mt-4">
           <button 
             onClick={() => { setInfoSection(null); sound.playClick(); }}
-            className={`w-full group flex items-center gap-3 rounded-lg px-4 py-3 text-left transition-all cursor-pointer ${
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm transition-all duration-300 font-bold tracking-widest uppercase text-xs border border-transparent cursor-pointer ${
               !infoSection 
-                ? 'bg-gradient-to-r from-neon-cyan/20 to-transparent text-neon-cyan shadow-[inset_2px_0_0_0_#00E5FF]'
-                : 'text-gray-400 hover:text-white'
+                ? 'bg-gradient-to-r from-neon-cyan/20 to-transparent text-white border-l-neon-cyan shadow-[inset_2px_0_0_#00E5FF,0_0_15px_rgba(0,229,255,0.1)]' 
+                : 'text-gray-400 hover:text-white hover:bg-white/5 hover:border-l-white/30'
             }`}
           >
-            <Swords className="h-5 w-5" />
-            <span className="font-medium uppercase tracking-wider text-xs">Dashboard</span>
+            <Swords className={`w-5 h-5 ${!infoSection ? 'text-neon-cyan' : 'text-gray-500'}`} />
+            <span>Salas de Duelo</span>
           </button>
 
           <button 
             onClick={() => { setInfoSection('chat'); sound.playClick(); }}
-            className={`w-full group flex items-center gap-3 rounded-lg px-4 py-3 text-left transition-all cursor-pointer ${
-              infoSection === 'chat'
-                ? 'bg-gradient-to-r from-neon-cyan/20 to-transparent text-neon-cyan shadow-[inset_2px_0_0_0_#00E5FF]'
-                : 'text-gray-400 hover:text-white'
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm transition-all duration-300 font-bold tracking-widest uppercase text-xs border border-transparent cursor-pointer ${
+              infoSection === 'chat' 
+                ? 'bg-gradient-to-r from-neon-cyan/20 to-transparent text-white border-l-neon-cyan shadow-[inset_2px_0_0_#00E5FF,0_0_15px_rgba(0,229,255,0.1)]' 
+                : 'text-gray-400 hover:text-white hover:bg-white/5 hover:border-l-white/30'
             }`}
           >
-            <MessageSquare className="h-5 w-5" />
-            <span className="font-medium uppercase tracking-wider text-xs">Chat da Arena</span>
+            <MessageSquare className={`w-5 h-5 ${infoSection === 'chat' ? 'text-neon-cyan' : 'text-gray-500'}`} />
+            <span>Taverna (Chat)</span>
           </button>
           
           <button 
             onClick={() => { setInfoSection('history'); sound.playClick(); }}
-            className={`w-full group flex items-center gap-3 rounded-lg px-4 py-3 text-left transition-all cursor-pointer ${
-              infoSection === 'history'
-                ? 'bg-gradient-to-r from-neon-cyan/20 to-transparent text-neon-cyan shadow-[inset_2px_0_0_0_#00E5FF]'
-                : 'text-gray-400 hover:text-white'
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm transition-all duration-300 font-bold tracking-widest uppercase text-xs border border-transparent cursor-pointer ${
+              infoSection === 'history' 
+                ? 'bg-gradient-to-r from-neon-cyan/20 to-transparent text-white border-l-neon-cyan shadow-[inset_2px_0_0_#00E5FF,0_0_15px_rgba(0,229,255,0.1)]' 
+                : 'text-gray-400 hover:text-white hover:bg-white/5 hover:border-l-white/30'
             }`}
           >
-            <History className="h-5 w-5" />
-            <span className="font-medium uppercase tracking-wider text-xs">Histórico</span>
+            <History className={`w-5 h-5 ${infoSection === 'history' ? 'text-neon-cyan' : 'text-gray-500'}`} />
+            <span>Histórico</span>
           </button>
 
           <button 
             onClick={() => { setInfoSection('ranking'); sound.playClick(); }}
-            className={`w-full group flex items-center gap-3 rounded-lg px-4 py-3 text-left transition-all cursor-pointer ${
-              infoSection === 'ranking'
-                ? 'bg-gradient-to-r from-neon-cyan/20 to-transparent text-neon-cyan shadow-[inset_2px_0_0_0_#00E5FF]'
-                : 'text-gray-400 hover:text-white'
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm transition-all duration-300 font-bold tracking-widest uppercase text-xs border border-transparent cursor-pointer ${
+              infoSection === 'ranking' 
+                ? 'bg-gradient-to-r from-neon-cyan/20 to-transparent text-white border-l-neon-cyan shadow-[inset_2px_0_0_#00E5FF,0_0_15px_rgba(0,229,255,0.1)]' 
+                : 'text-gray-400 hover:text-white hover:bg-white/5 hover:border-l-white/30'
             }`}
           >
-            <Trophy className="h-5 w-5" />
-            <span className="font-medium uppercase tracking-wider text-xs">Ranking</span>
+            <Trophy className={`w-5 h-5 ${infoSection === 'ranking' ? 'text-neon-cyan' : 'text-gray-500'}`} />
+            <span>Ranking</span>
           </button>
 
           <button 
             onClick={() => { setInfoSection('rules'); sound.playClick(); }}
-            className={`w-full group flex items-center gap-3 rounded-lg px-4 py-3 text-left transition-all cursor-pointer ${
-              infoSection === 'rules'
-                ? 'bg-gradient-to-r from-neon-cyan/20 to-transparent text-neon-cyan shadow-[inset_2px_0_0_0_#00E5FF]'
-                : 'text-gray-400 hover:text-white'
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm transition-all duration-300 font-bold tracking-widest uppercase text-xs border border-transparent cursor-pointer ${
+              infoSection === 'rules' 
+                ? 'bg-gradient-to-r from-neon-cyan/20 to-transparent text-white border-l-neon-cyan shadow-[inset_2px_0_0_#00E5FF,0_0_15px_rgba(0,229,255,0.1)]' 
+                : 'text-gray-400 hover:text-white hover:bg-white/5 hover:border-l-white/30'
             }`}
           >
-            <BookOpen className="h-5 w-5" />
-            <span className="font-medium uppercase tracking-wider text-xs">Regras</span>
+            <FileText className={`w-5 h-5 ${infoSection === 'rules' ? 'text-neon-cyan' : 'text-gray-500'}`} />
+            <span>Regras</span>
           </button>
 
           <button 
             onClick={() => { setInfoSection('how_to'); sound.playClick(); }}
-            className={`w-full group flex items-center gap-3 rounded-lg px-4 py-3 text-left transition-all cursor-pointer ${
-              infoSection === 'how_to'
-                ? 'bg-gradient-to-r from-neon-cyan/20 to-transparent text-neon-cyan shadow-[inset_2px_0_0_0_#00E5FF]'
-                : 'text-gray-400 hover:text-white'
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm transition-all duration-300 font-bold tracking-widest uppercase text-xs border border-transparent cursor-pointer ${
+              infoSection === 'how_to' 
+                ? 'bg-gradient-to-r from-neon-cyan/20 to-transparent text-white border-l-neon-cyan shadow-[inset_2px_0_0_#00E5FF,0_0_15px_rgba(0,229,255,0.1)]' 
+                : 'text-gray-400 hover:text-white hover:bg-white/5 hover:border-l-white/30'
             }`}
           >
-            <HelpCircle className="h-5 w-5" />
-            <span className="font-medium uppercase tracking-wider text-xs">Como Funciona</span>
+            <HelpCircle className={`w-5 h-5 ${infoSection === 'how_to' ? 'text-neon-cyan' : 'text-gray-500'}`} />
+            <span>Como Funciona</span>
           </button>
 
           <button 
             onClick={() => { setInfoSection('support'); sound.playClick(); }}
-            className={`w-full group flex items-center gap-3 rounded-lg px-4 py-3 text-left transition-all cursor-pointer ${
-              infoSection === 'support'
-                ? 'bg-gradient-to-r from-neon-cyan/20 to-transparent text-neon-cyan shadow-[inset_2px_0_0_0_#00E5FF]'
-                : 'text-gray-400 hover:text-white'
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm transition-all duration-300 font-bold tracking-widest uppercase text-xs border border-transparent cursor-pointer ${
+              infoSection === 'support' 
+                ? 'bg-gradient-to-r from-neon-cyan/20 to-transparent text-white border-l-neon-cyan shadow-[inset_2px_0_0_#00E5FF,0_0_15px_rgba(0,229,255,0.1)]' 
+                : 'text-gray-400 hover:text-white hover:bg-white/5 hover:border-l-white/30'
             }`}
           >
-            <MessageSquare className="h-5 w-5" />
-            <span className="font-medium uppercase tracking-wider text-xs">Suporte</span>
+            <HeartHandshake className={`w-5 h-5 ${infoSection === 'support' ? 'text-neon-cyan' : 'text-gray-500'}`} />
+            <span>Suporte</span>
           </button>
         </nav>
 
-        <div className="mt-auto border-t border-white/10 p-6 bg-[#0F0F0F]">
+        <div className="mt-auto border-t border-white/5 p-6 bg-transparent">
           <div className="mb-2 flex items-center justify-between text-[10px] uppercase tracking-widest text-gray-500">
             <span>System Status</span>
             <span className="flex items-center gap-1 text-neon-cyan">
@@ -295,7 +295,7 @@ export default function App() {
       <div className="flex-1 flex flex-col min-w-0">
         
         {/* TOP HEADER */}
-        <header className="flex items-center justify-between border-b border-white/10 bg-[#0A0A0A]/85 px-4 md:px-8 py-4 backdrop-blur-md sticky top-0 z-40">
+        <header className="flex items-center justify-between border-b border-white/5 glass-panel px-4 md:px-8 py-4 sticky top-0 z-40 shadow-[0_5px_30px_rgba(0,0,0,0.5)]">
           <div className="flex items-center gap-6">
             
             {/* Mobile Branding Link */}
@@ -400,7 +400,7 @@ export default function App() {
         <main className="flex-1 overflow-y-auto p-4 md:p-8">
           
           {user && (
-            <div className="mb-6 flex items-center gap-2.5 px-4 py-2.5 bg-[#0A0A0A]/40 border border-white/5 rounded-xl text-xxs font-mono text-gray-400">
+            <div className="mb-6 flex items-center gap-2.5 px-4 py-3 bg-gradient-to-r from-gold-cabal/10 to-transparent border border-gold-cabal/20 rounded-sm text-[10px] font-mono text-gold-cabal/80 uppercase tracking-widest shadow-[0_0_15px_rgba(212,175,55,0.05)]">
               <Sparkles className="w-4 h-4 text-gold-cabal shrink-0 animate-pulse" />
               <span className="truncate">{db.getSettings().welcomeMessage}</span>
               
@@ -416,7 +416,7 @@ export default function App() {
                 className={`px-3 py-1.5 rounded-lg border text-xxs font-mono font-bold uppercase shrink-0 transition-all cursor-pointer ${
                   !infoSection
                     ? 'bg-neon-cyan/15 border-neon-cyan/40 text-neon-cyan shadow-[0_0_8px_rgba(0,229,255,0.1)]'
-                    : 'bg-neutral-900/60 border-neutral-800 text-neutral-400'
+                    : 'glass-panel border-white/10 text-gray-400'
                 }`}
               >
                 ⚔️ Arena
@@ -426,7 +426,7 @@ export default function App() {
                 className={`px-3 py-1.5 rounded-lg border text-xxs font-mono font-bold uppercase shrink-0 transition-all cursor-pointer ${
                   infoSection === 'chat'
                     ? 'bg-neon-cyan/15 border-neon-cyan/40 text-neon-cyan shadow-[0_0_8px_rgba(0,229,255,0.1)]'
-                    : 'bg-neutral-900/60 border-neutral-800 text-neutral-400'
+                    : 'glass-panel border-white/10 text-gray-400'
                 }`}
               >
                 💬 Chat
@@ -437,7 +437,7 @@ export default function App() {
                 className={`px-3 py-1.5 rounded-lg border text-xxs font-mono font-bold uppercase shrink-0 transition-all cursor-pointer ${
                   infoSection === 'history'
                     ? 'bg-neon-cyan/15 border-neon-cyan/40 text-neon-cyan shadow-[0_0_8px_rgba(0,229,255,0.1)]'
-                    : 'bg-neutral-900/60 border-neutral-800 text-neutral-400'
+                    : 'glass-panel border-white/10 text-gray-400'
                 }`}
               >
                 📜 Histórico
@@ -447,7 +447,7 @@ export default function App() {
                 className={`px-3 py-1.5 rounded-lg border text-xxs font-mono font-bold uppercase shrink-0 transition-all cursor-pointer ${
                   infoSection === 'ranking'
                     ? 'bg-neon-cyan/15 border-neon-cyan/40 text-neon-cyan shadow-[0_0_8px_rgba(0,229,255,0.1)]'
-                    : 'bg-neutral-900/60 border-neutral-800 text-neutral-400'
+                    : 'glass-panel border-white/10 text-gray-400'
                 }`}
               >
                 🏆 Ranking
@@ -457,7 +457,7 @@ export default function App() {
                 className={`px-3 py-1.5 rounded-lg border text-xxs font-mono font-bold uppercase shrink-0 transition-all cursor-pointer ${
                   infoSection === 'rules'
                     ? 'bg-neon-cyan/15 border-neon-cyan/40 text-neon-cyan shadow-[0_0_8px_rgba(0,229,255,0.1)]'
-                    : 'bg-neutral-900/60 border-neutral-800 text-neutral-400'
+                    : 'glass-panel border-white/10 text-gray-400'
                 }`}
               >
                 📖 Regras
@@ -467,7 +467,7 @@ export default function App() {
                 className={`px-3 py-1.5 rounded-lg border text-xxs font-mono font-bold uppercase shrink-0 transition-all cursor-pointer ${
                   infoSection === 'how_to'
                     ? 'bg-neon-cyan/15 border-neon-cyan/40 text-neon-cyan shadow-[0_0_8px_rgba(0,229,255,0.1)]'
-                    : 'bg-neutral-900/60 border-neutral-800 text-neutral-400'
+                    : 'glass-panel border-white/10 text-gray-400'
                 }`}
               >
                 💡 Como Funciona
@@ -477,7 +477,7 @@ export default function App() {
                 className={`px-3 py-1.5 rounded-lg border text-xxs font-mono font-bold uppercase shrink-0 transition-all cursor-pointer ${
                   infoSection === 'support'
                     ? 'bg-neon-cyan/15 border-neon-cyan/40 text-neon-cyan shadow-[0_0_8px_rgba(0,229,255,0.1)]'
-                    : 'bg-neutral-900/60 border-neutral-800 text-neutral-400'
+                    : 'glass-panel border-white/10 text-gray-400'
                 }`}
               >
                 💬 Suporte

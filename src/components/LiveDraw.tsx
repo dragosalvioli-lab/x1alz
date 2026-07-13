@@ -333,18 +333,18 @@ export const LiveDraw: React.FC<LiveDrawProps> = ({ room, currentUser, onFinishe
         <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-500 via-amber-500 to-cyan-500" />
 
         {/* Room Header Info */}
-        <div className="flex flex-wrap justify-between items-center gap-4 border-b border-neutral-800 pb-4 mb-8">
+        <div className="flex flex-wrap justify-between items-center gap-4 border-b border-white/10 pb-4 mb-8">
           <div>
             <GamerBadge variant="blue" className="mb-1.5">
               {isReplayMode ? 'Replay do Sorteio 🎥' : 'Sorteio Ao Vivo ⚡'}
             </GamerBadge>
-            <h2 className="font-display font-black text-2xl uppercase tracking-wider text-neutral-200">
+            <h2 className="font-display font-black text-2xl uppercase tracking-wider text-gray-200">
               SALA {room.code}
             </h2>
           </div>
           <div className="text-right">
-            <span className="text-xs text-neutral-500 font-mono block">VALOR APOSTADO INDIVIDUAL</span>
-            <span className="text-xl font-mono font-bold text-amber-400">
+            <span className="text-xs text-gray-500 font-mono block">VALOR APOSTADO INDIVIDUAL</span>
+            <span className="text-xl font-mono font-bold text-gold-cabal">
               {formatALZ(room.betAmount)}
             </span>
           </div>
@@ -352,15 +352,15 @@ export const LiveDraw: React.FC<LiveDrawProps> = ({ room, currentUser, onFinishe
 
         {phase === 'countdown' ? (
           <div className="text-center py-8 px-4 max-w-lg mx-auto space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-full text-cyan-400 text-xxs font-mono uppercase tracking-wider animate-pulse">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-neon-cyan/10 border border-neon-cyan/30 rounded-full text-neon-cyan text-xxs font-mono uppercase tracking-wider animate-pulse">
               <Clock className="w-3.5 h-3.5 animate-spin" /> Aguardando Jogadores Ao Vivo
             </div>
             
             <div className="space-y-1.5">
-              <h3 className="font-display font-black text-xl text-neutral-200 uppercase tracking-wider">
+              <h3 className="font-display font-black text-xl text-gray-200 uppercase tracking-wider">
                 Contagem Regressiva do Duelo
               </h3>
-              <p className="text-xs text-neutral-400 leading-relaxed font-sans">
+              <p className="text-xs text-gray-400 leading-relaxed font-sans">
                 Os jogadores têm 2 minutos para se posicionarem. A roleta rodará automaticamente quando o tempo zerar.
               </p>
             </div>
@@ -370,17 +370,17 @@ export const LiveDraw: React.FC<LiveDrawProps> = ({ room, currentUser, onFinishe
               {/* Player 1 Card */}
               <div className={`p-3 rounded-xl border font-mono text-left relative overflow-hidden transition-all duration-300 ${
                 currentRoom.player1Present 
-                  ? 'border-cyan-500/30 bg-cyan-950/10 shadow-[0_0_15px_rgba(6,182,212,0.1)]' 
-                  : 'border-neutral-800 bg-neutral-900/40 opacity-60'
+                  ? 'border-neon-cyan/30 bg-cyan-950/10 shadow-[0_0_15px_rgba(6,182,212,0.1)]' 
+                  : 'border-white/10 bg-white/5/40 opacity-60'
               }`}>
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] text-neutral-400 font-sans tracking-wider">CRIADOR DA SALA</span>
-                  <span className={`w-2 h-2 rounded-full ${currentRoom.player1Present ? 'bg-cyan-400 animate-pulse' : 'bg-neutral-600'}`} />
+                  <span className="text-[9px] text-gray-400 font-sans tracking-wider">CRIADOR DA SALA</span>
+                  <span className={`w-2 h-2 rounded-full ${currentRoom.player1Present ? 'bg-cyan-400 animate-pulse' : 'glass-panel'}`} />
                 </div>
-                <p className="font-display font-black text-sm uppercase text-neutral-200 mt-1.5 truncate">
+                <p className="font-display font-black text-sm uppercase text-gray-200 mt-1.5 truncate">
                   {currentRoom.player1Nick}
                 </p>
-                <p className="text-[9px] font-sans text-neutral-500 mt-1">
+                <p className="text-[9px] font-sans text-gray-500 mt-1">
                   {currentRoom.player1Present ? '🟢 Na tela do sorteio' : '⏳ Ausente / Não logou'}
                 </p>
               </div>
@@ -388,37 +388,37 @@ export const LiveDraw: React.FC<LiveDrawProps> = ({ room, currentUser, onFinishe
               {/* Player 2 Card */}
               <div className={`p-3 rounded-xl border font-mono text-left relative overflow-hidden transition-all duration-300 ${
                 currentRoom.player2Present 
-                  ? 'border-amber-500/30 bg-amber-950/10 shadow-[0_0_15px_rgba(245,158,11,0.1)]' 
-                  : 'border-neutral-800 bg-neutral-900/40 opacity-60'
+                  ? 'border-gold-cabal/30 bg-amber-950/10 shadow-[0_0_15px_rgba(245,158,11,0.1)]' 
+                  : 'border-white/10 bg-white/5/40 opacity-60'
               }`}>
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] text-neutral-400 font-sans tracking-wider">DESAFIANTE</span>
-                  <span className={`w-2 h-2 rounded-full ${currentRoom.player2Present ? 'bg-amber-400 animate-pulse' : 'bg-neutral-600'}`} />
+                  <span className="text-[9px] text-gray-400 font-sans tracking-wider">DESAFIANTE</span>
+                  <span className={`w-2 h-2 rounded-full ${currentRoom.player2Present ? 'bg-amber-400 animate-pulse' : 'glass-panel'}`} />
                 </div>
-                <p className="font-display font-black text-sm uppercase text-neutral-200 mt-1.5 truncate">
+                <p className="font-display font-black text-sm uppercase text-gray-200 mt-1.5 truncate">
                   {currentRoom.player2Nick || 'Sem Oponente'}
                 </p>
-                <p className="text-[9px] font-sans text-neutral-500 mt-1">
+                <p className="text-[9px] font-sans text-gray-500 mt-1">
                   {currentRoom.player2Present ? '🟢 Na tela do sorteio' : '⏳ Ausente / Não logou'}
                 </p>
               </div>
             </div>
 
             {/* Giant Digital Timer */}
-            <div className="bg-neutral-950 border border-neutral-800 rounded-2xl py-6 px-6 shadow-inner relative overflow-hidden">
-              <div className="absolute inset-0 bg-cyan-500/5 animate-pulse pointer-events-none" />
-              <div className="font-mono text-4xl md:text-5xl font-black tracking-widest text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.4)]">
+            <div className="glass-panel border border-white/10 rounded-2xl py-6 px-6 shadow-inner relative overflow-hidden">
+              <div className="absolute inset-0 bg-neon-cyan/5 animate-pulse pointer-events-none" />
+              <div className="font-mono text-4xl md:text-5xl font-black tracking-widest text-neon-cyan drop-shadow-[0_0_15px_rgba(34,211,238,0.4)]">
                 {formatTime(secondsLeft)}
               </div>
-              <p className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest mt-2">
+              <p className="text-[9px] font-mono text-gray-500 uppercase tracking-widest mt-2">
                 O sorteio iniciará automaticamente quando o tempo zerar
               </p>
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full bg-neutral-950 h-2 border border-neutral-800 rounded-full overflow-hidden">
+            <div className="w-full glass-panel h-2 border border-white/10 rounded-full overflow-hidden">
               <div 
-                className="bg-cyan-500 h-full transition-all duration-1000 shadow-[0_0_8px_#00E5FF]"
+                className="bg-neon-cyan h-full transition-all duration-1000 shadow-[0_0_8px_#00E5FF]"
                 style={{ width: `${(secondsLeft / 120) * 100}%` }}
               />
             </div>
@@ -440,7 +440,7 @@ export const LiveDraw: React.FC<LiveDrawProps> = ({ room, currentUser, onFinishe
                   <GamerButton
                     onClick={onCancel}
                     variant="ghost"
-                    className="w-full sm:w-auto py-3 px-6 text-xs text-neutral-400 hover:text-neutral-200"
+                    className="w-full sm:w-auto py-3 px-6 text-xs text-gray-400 hover:text-gray-200"
                   >
                     Retornar ao Painel
                   </GamerButton>
@@ -448,11 +448,11 @@ export const LiveDraw: React.FC<LiveDrawProps> = ({ room, currentUser, onFinishe
               ) : (
                 // Regular player spectator: see status information and return button
                 <div className="flex flex-col items-center gap-4">
-                  <div className="p-3 bg-neutral-950 border border-neutral-900 rounded-xl text-center w-full max-w-sm">
-                    <p className="text-xxs text-amber-400 font-mono uppercase tracking-widest animate-pulse">
+                  <div className="p-3 glass-panel border border-white/5 rounded-xl text-center w-full max-w-sm">
+                    <p className="text-xxs text-gold-cabal font-mono uppercase tracking-widest animate-pulse">
                       Aguardando Sorteio do Administrador ⏳
                     </p>
-                    <p className="text-[10px] text-neutral-500 font-sans mt-1">
+                    <p className="text-[10px] text-gray-500 font-sans mt-1">
                       O sorteio será iniciado ao vivo pelo organizador. Acompanhe o resultado!
                     </p>
                   </div>
@@ -460,7 +460,7 @@ export const LiveDraw: React.FC<LiveDrawProps> = ({ room, currentUser, onFinishe
                   <GamerButton
                     onClick={onCancel}
                     variant="ghost"
-                    className="py-2 px-6 text-xs text-neutral-400 hover:text-neutral-200"
+                    className="py-2 px-6 text-xs text-gray-400 hover:text-gray-200"
                   >
                     Retornar ao Painel
                   </GamerButton>
@@ -478,16 +478,16 @@ export const LiveDraw: React.FC<LiveDrawProps> = ({ room, currentUser, onFinishe
                 <div className={`p-1.5 rounded-xl border-2 transition-all duration-300 ${
                   activeHighlight === 'p1' 
                     ? 'border-cyan-400 bg-cyan-950/20 shadow-[0_0_20px_rgba(34,211,238,0.3)] scale-105' 
-                    : 'border-neutral-800 bg-neutral-950/40 opacity-50 scale-95'
+                    : 'border-white/10 glass-panel/40 opacity-50 scale-95'
                 }`}>
-                  <div className="w-24 h-24 rounded-lg bg-cyan-950/40 border border-cyan-500/30 flex items-center justify-center text-3xl font-display font-bold text-cyan-400 select-none shadow-inner">
+                  <div className="w-24 h-24 rounded-lg bg-gradient-to-br from-neon-cyan/20 to-transparent border border-neon-cyan/50 flex items-center justify-center text-3xl font-display font-bold text-neon-cyan select-none shadow-inner">
                     ⚔️
                   </div>
                 </div>
-                <h4 className="font-display font-black text-lg text-neutral-200 mt-4 tracking-wide uppercase">
+                <h4 className="font-display font-black text-lg text-gray-200 mt-4 tracking-wide uppercase">
                   {room.player1Nick}
                 </h4>
-                <p className="text-xs text-neutral-500 font-mono mt-1">CRIADOR DA SALA</p>
+                <p className="text-xs text-gray-500 font-mono mt-1">CRIADOR DA SALA</p>
                 <GamerBadge variant="blue" className="mt-2">PROB: 50%</GamerBadge>
               </div>
 
@@ -496,19 +496,19 @@ export const LiveDraw: React.FC<LiveDrawProps> = ({ room, currentUser, onFinishe
                 {phase === 'spinning' ? (
                   <div className="flex flex-col items-center justify-center">
                     <div className="relative w-16 h-16 flex items-center justify-center">
-                      <div className="absolute inset-0 rounded-full border-4 border-dashed border-cyan-500/20 animate-spin" />
-                      <span className="font-display font-black text-2xl text-cyan-400 animate-pulse">VS</span>
+                      <div className="absolute inset-0 rounded-full border-4 border-dashed border-neon-cyan/20 animate-spin" />
+                      <span className="font-display font-black text-3xl text-neon-cyan text-glow-cyan animate-pulse drop-shadow-[0_0_15px_#00E5FF]">VS</span>
                     </div>
-                    <p className="text-xxs font-mono text-cyan-400 tracking-widest uppercase mt-4 animate-bounce">
+                    <p className="text-xxs font-mono text-neon-cyan tracking-widest uppercase mt-4 animate-bounce">
                       SORTEANDO...
                     </p>
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-amber-500/10 border-2 border-amber-500/50 flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.2)]">
-                      <Trophy className="w-8 h-8 text-amber-400 animate-bounce" />
+                    <div className="w-16 h-16 rounded-full bg-gold-cabal/10 border-2 border-gold-cabal/50 flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+                      <Trophy className="w-8 h-8 text-gold-cabal animate-bounce" />
                     </div>
-                    <p className="text-xxs font-mono text-amber-400 tracking-widest uppercase mt-4">
+                    <p className="text-xxs font-mono text-gold-cabal tracking-widest uppercase mt-4">
                       FIM DE DUELO
                     </p>
                   </div>
@@ -520,16 +520,16 @@ export const LiveDraw: React.FC<LiveDrawProps> = ({ room, currentUser, onFinishe
                 <div className={`p-1.5 rounded-xl border-2 transition-all duration-300 ${
                   activeHighlight === 'p2' 
                     ? 'border-amber-400 bg-amber-950/20 shadow-[0_0_20px_rgba(245,158,11,0.3)] scale-105' 
-                    : 'border-neutral-800 bg-neutral-950/40 opacity-50 scale-95'
+                    : 'border-white/10 glass-panel/40 opacity-50 scale-95'
                 }`}>
-                  <div className="w-24 h-24 rounded-lg bg-amber-950/40 border border-amber-500/30 flex items-center justify-center text-3xl font-display font-bold text-amber-400 select-none shadow-inner">
+                  <div className="w-24 h-24 rounded-lg bg-gradient-to-br from-gold-cabal/20 to-transparent border border-gold-cabal/50 flex items-center justify-center text-3xl font-display font-bold text-gold-cabal select-none shadow-inner">
                     ⚡
                   </div>
                 </div>
-                <h4 className="font-display font-black text-lg text-neutral-200 mt-4 tracking-wide uppercase">
+                <h4 className="font-display font-black text-lg text-gray-200 mt-4 tracking-wide uppercase">
                   {room.player2Nick || "Aguardando"}
                 </h4>
-                <p className="text-xs text-neutral-500 font-mono mt-1">DESAFIANTE</p>
+                <p className="text-xs text-gray-500 font-mono mt-1">DESAFIANTE</p>
                 <GamerBadge variant="gold" className="mt-2">PROB: 50%</GamerBadge>
               </div>
 
@@ -537,38 +537,38 @@ export const LiveDraw: React.FC<LiveDrawProps> = ({ room, currentUser, onFinishe
 
             {/* Results Area */}
             {phase === 'winner' && (
-              <div className="mt-8 pt-8 border-t border-neutral-800 text-center animate-fade-in relative z-20">
+              <div className="mt-8 pt-8 border-t border-white/10 text-center animate-fade-in relative z-20">
                 <div className="max-w-md mx-auto">
                   
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-full text-amber-400 text-xxs font-mono uppercase tracking-widest mb-3 animate-pulse">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-gold-cabal/10 border border-gold-cabal/30 rounded-full text-gold-cabal text-xxs font-mono uppercase tracking-widest mb-3 animate-pulse">
                     <Sparkles className="w-3.5 h-3.5" /> {isReplayMode ? 'REPLAY CONCLUÍDO' : 'DUELO ENCERRADO COM SUCESSO'}
                   </div>
 
-                  <h3 className="font-display font-black text-3xl text-amber-400 uppercase tracking-wider mb-2">
+                  <h3 className="font-display font-black text-3xl text-gold-cabal uppercase tracking-wider mb-2">
                     Vencedor: {getWinnerName()}
                   </h3>
 
                   {/* Financial Box Calculation */}
-                  <div className="bg-neutral-950 border border-neutral-800/80 rounded-xl p-5 my-6 text-left space-y-3 font-mono">
+                  <div className="glass-panel border border-white/10/80 rounded-xl p-5 my-6 text-left space-y-3 font-mono">
                     <div className="flex justify-between items-center text-xs">
-                      <span className="text-neutral-500">VALOR TOTAL DO POTE (2x):</span>
-                      <span className="text-neutral-300 font-bold">{formatALZ(room.betAmount * 2)}</span>
+                      <span className="text-gray-500">VALOR TOTAL DO POTE (2x):</span>
+                      <span className="text-gray-300 font-bold">{formatALZ(room.betAmount * 2)}</span>
                     </div>
                     <div className="flex justify-between items-center text-xs">
-                      <span className="text-neutral-500">TAXA ADMINISTRATIVA ({room.houseFeePercent}%):</span>
+                      <span className="text-gray-500">TAXA ADMINISTRATIVA ({room.houseFeePercent}%):</span>
                       <span className="text-red-400 font-bold">-{formatALZ(calculateHouseFee())}</span>
                     </div>
-                    <div className="h-[1px] bg-neutral-800 my-1" />
+                    <div className="h-[1px] glass-panel my-1" />
                     <div className="flex justify-between items-center text-sm font-bold">
-                      <span className="text-neutral-300">VALOR LÍQUIDO A RECEBER:</span>
-                      <span className="text-amber-400 text-base">{formatALZ(calculateNetWinner())}</span>
+                      <span className="text-gray-300">VALOR LÍQUIDO A RECEBER:</span>
+                      <span className="text-gold-cabal text-base">{formatALZ(calculateNetWinner())}</span>
                     </div>
                   </div>
 
-                  <div className="p-3 bg-neutral-900 border border-neutral-800 rounded-lg text-neutral-400 text-xxs text-left flex items-start gap-2 mb-6">
+                  <div className="p-3 bg-white/5 border border-white/10 rounded-lg text-gray-400 text-xxs text-left flex items-start gap-2 mb-6">
                     <AlertCircle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                     <span>
-                      O valor líquido acima foi contabilizado em sua conta na plataforma. O Administrador do <span className="font-bold text-neutral-300">X1 ALZ</span> efetuará o envio de seus ALZ diretamente no jogo Cabal Neo para o seu personagem registrado.
+                      O valor líquido acima foi contabilizado em sua conta na plataforma. O Administrador do <span className="font-bold text-gray-300">X1 ALZ</span> efetuará o envio de seus ALZ diretamente no jogo Cabal Neo para o seu personagem registrado.
                     </span>
                   </div>
 

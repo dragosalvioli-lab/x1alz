@@ -113,18 +113,18 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onShowSection
           </div>
         </div>
 
-        <p className="text-neutral-300 text-lg leading-relaxed max-w-xl">
+        <p className="text-gray-300 text-lg leading-relaxed max-w-xl">
           Desafie outros guerreiros em combates de apostas de ALZ totalmente seguras e auditadas pela casa. Crie salas personalizadas de 100kk a 10b, convide adversários e acompanhe o sorteio ao vivo em tempo real.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg">
-          <div className="p-4 bg-neutral-900/60 border border-neutral-800 rounded-xl hover:border-cyan-500/30 transition-colors">
+          <div className="p-4 glass-panel/60 border border-white/10 rounded-xl hover:border-cyan-500/30 transition-colors">
             <h4 className="font-display font-bold text-cyan-400 text-sm mb-1 uppercase">1. Transações Seguras</h4>
-            <p className="text-neutral-400 text-xs leading-relaxed">Deposite seus ALZ diretamente no personagem confiável <span className="font-mono text-amber-400 font-bold">X1Alz</span> sob controle total do administrador.</p>
+            <p className="text-gray-400 text-xs leading-relaxed">Deposite seus ALZ diretamente no personagem confiável <span className="font-mono text-amber-400 font-bold">X1Alz</span> sob controle total do administrador.</p>
           </div>
-          <div className="p-4 bg-neutral-900/60 border border-neutral-800 rounded-xl hover:border-amber-500/30 transition-colors">
+          <div className="p-4 glass-panel/60 border border-white/10 rounded-xl hover:border-amber-500/30 transition-colors">
             <h4 className="font-display font-bold text-amber-400 text-sm mb-1 uppercase">2. Sorteio ao Vivo</h4>
-            <p className="text-neutral-400 text-xs leading-relaxed">O sorteio inicia na hora com uma linda animação de roleta e probabilidade justa baseada em <span className="font-mono text-cyan-400">Math.random()</span>.</p>
+            <p className="text-gray-400 text-xs leading-relaxed">O sorteio inicia na hora com uma linda animação de roleta e probabilidade justa baseada em <span className="font-mono text-cyan-400">Math.random()</span>.</p>
           </div>
         </div>
 
@@ -169,21 +169,21 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onShowSection
             /* LOGIN FORM */
             <form onSubmit={handleLogin} className="space-y-4 text-left">
               <div>
-                <label className="block text-neutral-400 text-xs font-mono uppercase tracking-wider mb-1.5">
+                <label className="block text-gray-400 text-xs font-mono uppercase tracking-wider mb-1.5">
                   Email
                 </label>
                 <div className="relative mb-4">
-                  <UserIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-500 w-4.5 h-4.5" />
+                  <UserIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 w-4.5 h-4.5" />
                   <input
                     type="text"
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
                     placeholder="seu@email.com ou usuário"
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg py-3 pl-11 pr-4 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-cyan-500 transition-colors font-sans"
+                    className="w-full glass-panel border border-white/10 rounded-lg py-3 pl-11 pr-4 text-sm text-gray-200 placeholder-neutral-600 focus:outline-none focus:border-cyan-500 transition-colors font-sans"
                   />
                 </div>
                 <div className="flex justify-between items-end mb-1.5">
-                  <label className="block text-neutral-400 text-xs font-mono uppercase tracking-wider">
+                  <label className="block text-gray-400 text-xs font-mono uppercase tracking-wider">
                     Senha
                   </label>
                   <button 
@@ -208,20 +208,20 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onShowSection
                   </button>
                 </div>
                 <div className="relative">
-                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-500 w-4.5 h-4.5" />
+                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 w-4.5 h-4.5" />
                   <input
                     type="password"
                     value={loginPassword}
                     onChange={(e) => setLoginPassword(e.target.value)}
                     placeholder="Sua senha"
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg py-3 pl-11 pr-4 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-cyan-500 transition-colors font-sans"
+                    className="w-full glass-panel border border-white/10 rounded-lg py-3 pl-11 pr-4 text-sm text-gray-200 placeholder-neutral-600 focus:outline-none focus:border-cyan-500 transition-colors font-sans"
                   />
                 </div>
               </div>
               <GamerButton type="submit" variant="blue" className="w-full py-3.5 text-sm mt-2">
                 <Swords className="w-4 h-4" /> Entrar na Arena
               </GamerButton>
-              <p className="text-center text-xs text-neutral-500 mt-4">
+              <p className="text-center text-xs text-gray-500 mt-4">
                 Não possui conta?{' '}
                 <button
                   type="button"
@@ -236,56 +236,56 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onShowSection
             /* REGISTER FORM */
             <form onSubmit={handleRegister} className="space-y-4 text-left">
               <div>
-                <label className="block text-neutral-400 text-xs font-mono uppercase tracking-wider mb-1.5">
+                <label className="block text-gray-400 text-xs font-mono uppercase tracking-wider mb-1.5">
                   Email
                 </label>
                 <div className="relative mb-4">
-                  <UserIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-500 w-4.5 h-4.5" />
+                  <UserIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 w-4.5 h-4.5" />
                   <input
                     type="email"
                     value={regEmail}
                     onChange={(e) => setRegEmail(e.target.value)}
                     placeholder="seu@email.com"
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg py-3 pl-11 pr-4 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-500 transition-colors font-sans"
+                    className="w-full glass-panel border border-white/10 rounded-lg py-3 pl-11 pr-4 text-sm text-gray-200 placeholder-neutral-600 focus:outline-none focus:border-amber-500 transition-colors font-sans"
                   />
                 </div>
-                <label className="block text-neutral-400 text-xs font-mono uppercase tracking-wider mb-1.5">
+                <label className="block text-gray-400 text-xs font-mono uppercase tracking-wider mb-1.5">
                   Senha
                 </label>
                 <div className="relative mb-4">
-                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-500 w-4.5 h-4.5" />
+                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 w-4.5 h-4.5" />
                   <input
                     type="password"
                     value={regPassword}
                     onChange={(e) => setRegPassword(e.target.value)}
                     placeholder="Sua senha secreta"
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg py-3 pl-11 pr-4 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-500 transition-colors font-sans"
+                    className="w-full glass-panel border border-white/10 rounded-lg py-3 pl-11 pr-4 text-sm text-gray-200 placeholder-neutral-600 focus:outline-none focus:border-amber-500 transition-colors font-sans"
                   />
                 </div>
-                <label className="block text-neutral-400 text-xs font-mono uppercase tracking-wider mb-1.5">
+                <label className="block text-gray-400 text-xs font-mono uppercase tracking-wider mb-1.5">
                   Nome do Personagem (Nick)
                 </label>
                 <div className="relative mb-4">
-                  <UserIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-500 w-4.5 h-4.5" />
+                  <UserIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 w-4.5 h-4.5" />
                   <input
                     type="text"
                     value={regNick}
                     onChange={(e) => setRegNick(e.target.value)}
                     placeholder="Ex: GuerreiroPVP"
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg py-3 pl-11 pr-4 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-500 transition-colors font-sans"
+                    className="w-full glass-panel border border-white/10 rounded-lg py-3 pl-11 pr-4 text-sm text-gray-200 placeholder-neutral-600 focus:outline-none focus:border-amber-500 transition-colors font-sans"
                   />
                 </div>
-                <label className="block text-neutral-400 text-xs font-mono uppercase tracking-wider mb-1.5">
+                <label className="block text-gray-400 text-xs font-mono uppercase tracking-wider mb-1.5">
                   Guilda do Personagem
                 </label>
                 <div className="relative mb-4">
-                  <Shield className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-500 w-4.5 h-4.5" />
+                  <Shield className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 w-4.5 h-4.5" />
                   <input
                     type="text"
                     value={regGuild}
                     onChange={(e) => setRegGuild(e.target.value)}
                     placeholder="Ex: OsGuerreiros"
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg py-3 pl-11 pr-4 text-sm text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-amber-500 transition-colors font-sans"
+                    className="w-full glass-panel border border-white/10 rounded-lg py-3 pl-11 pr-4 text-sm text-gray-200 placeholder-neutral-600 focus:outline-none focus:border-amber-500 transition-colors font-sans"
                   />
                 </div>
               </div>
@@ -295,16 +295,16 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onShowSection
                   id="terms"
                   checked={acceptTerms}
                   onChange={(e) => setAcceptTerms(e.target.checked)}
-                  className="mt-0.5 rounded border-neutral-800 text-amber-500 focus:ring-amber-500 bg-neutral-950"
+                  className="mt-0.5 rounded border-white/10 text-amber-500 focus:ring-amber-500 glass-panel"
                 />
-                <label htmlFor="terms" className="text-xxs text-neutral-400 leading-normal select-none">
+                <label htmlFor="terms" className="text-xxs text-gray-400 leading-normal select-none">
                   Eu concordo com as regras de apostas, retenção de taxa administrativa de 3%, e me comprometo a enviar os ALZ para o personagem correspondente.
                 </label>
               </div>
               <GamerButton type="submit" variant="gold" className="w-full py-3 text-xs mt-2">
                 Criar Minha Arena
               </GamerButton>
-              <p className="text-center text-xs text-neutral-500 mt-3">
+              <p className="text-center text-xs text-gray-500 mt-3">
                 Já é cadastrado?{' '}
                 <button
                   type="button"

@@ -73,21 +73,21 @@ export const CountdownBanner: React.FC<CountdownBannerProps> = ({ onStatusChange
             X1 ALZ FECHADO
           </h2>
           
-          <p className="text-neutral-400 text-sm mb-6 max-w-sm mx-auto">
+          <p className="text-gray-400 text-sm mb-6 max-w-sm mx-auto">
             O portal de apostas PvP opera exclusivamente nos horários de pico comercial para garantir monitoramento total dos administradores.
           </p>
 
-          <div className="bg-neutral-950 border border-neutral-800 rounded-xl p-6">
-            <p className="text-xs text-neutral-500 font-mono uppercase tracking-widest mb-1">
+          <div className="glass-panel border border-white/10 rounded-xl p-6">
+            <p className="text-xs text-gray-500 font-mono uppercase tracking-widest mb-1">
               Horário de Funcionamento
             </p>
-            <p className="text-xl font-display font-bold text-neutral-200 mb-4">
+            <p className="text-xl font-display font-bold text-gray-200 mb-4">
               {status.openAtString} até {status.closeAtString}
             </p>
 
-            <div className="h-[1px] bg-neutral-800 my-4" />
+            <div className="h-[1px] glass-panel my-4" />
 
-            <p className="text-xs text-neutral-500 font-mono uppercase tracking-widest mb-2">
+            <p className="text-xs text-gray-500 font-mono uppercase tracking-widest mb-2">
               Abertura em
             </p>
             <p className="text-4xl font-mono font-bold tracking-widest text-amber-400 drop-shadow-[0_0_10px_rgba(245,158,11,0.2)]">
@@ -97,7 +97,7 @@ export const CountdownBanner: React.FC<CountdownBannerProps> = ({ onStatusChange
           <div className="mt-8 relative z-10 flex justify-center">
             <button
               onClick={() => onAdminLoginRequest && onAdminLoginRequest()}
-              className="text-xs text-neutral-600 hover:text-neutral-400 font-mono transition-colors border-b border-transparent hover:border-neutral-500 pb-0.5 cursor-pointer"
+              className="text-xs text-neutral-600 hover:text-gray-400 font-mono transition-colors border-b border-transparent hover:border-neutral-500 pb-0.5 cursor-pointer"
             >
               Acesso Restrito (Admin)
             </button>

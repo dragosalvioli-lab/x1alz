@@ -99,10 +99,10 @@ export const ChatBox: React.FC<ChatBoxProps> = ({ currentUser, inline = false })
                   {new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </span>
               </div>
-              <div className={`px-3 py-2 rounded-lg text-xs max-w-[85%] ${
+              <div className={`px-3 py-2 rounded-sm text-xs max-w-[85%] shadow-[0_0_10px_rgba(0,0,0,0.5)] ${
                 isMine 
-                  ? 'bg-amber-950/40 border border-amber-900/50 text-neutral-200 rounded-tr-none' 
-                  : 'bg-neutral-900 border border-neutral-800 text-neutral-300 rounded-tl-none'
+                  ? 'bg-amber-950/40 border border-amber-900/50 text-gray-200 rounded-tr-none' 
+                  : 'bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 rounded-tl-none'
               }`}>
                 {m.text}
               </div>
@@ -126,26 +126,26 @@ export const ChatBox: React.FC<ChatBoxProps> = ({ currentUser, inline = false })
   }
 
   return (
-    <div className={inline ? "w-full h-full min-h-[500px] bg-[#0A0A0A] border border-neutral-800 shadow-2xl rounded-2xl flex flex-col overflow-hidden animate-fade-in" : "fixed bottom-6 right-6 z-50 w-[320px] sm:w-[380px] h-[450px] bg-[#0A0A0A] border border-neutral-800 shadow-2xl rounded-2xl flex flex-col overflow-hidden animate-fade-in"}>
+    <div className={inline ? "w-full h-full min-h-[500px] glass-panel border border-white/10 shadow-2xl rounded-2xl flex flex-col overflow-hidden animate-fade-in" : "fixed bottom-6 right-6 z-50 w-[320px] sm:w-[380px] h-[450px] glass-panel border border-white/10 shadow-2xl rounded-2xl flex flex-col overflow-hidden animate-fade-in"}>
       {/* Header */}
-      <div className="flex items-center justify-between p-3 bg-neutral-950 border-b border-neutral-800">
-        <h3 className="font-display font-bold text-neutral-200 text-sm flex items-center gap-2 uppercase tracking-wider">
+      <div className="flex items-center justify-between p-3 bg-white/5 border-b border-white/10">
+        <h3 className="font-display font-bold text-gray-200 text-sm flex items-center gap-2 uppercase tracking-wider">
           <MessageCircle className="w-4 h-4 text-cyan-400" />
           Chat da Arena
         </h3>
         {!inline && (
-        <button onClick={() => setIsOpen(false)} className="text-neutral-500 hover:text-red-400 transition-colors p-1 cursor-pointer">
+        <button onClick={() => setIsOpen(false)} className="text-gray-500 hover:text-red-400 transition-colors p-1 cursor-pointer">
           <X className="w-4 h-4" />
         </button>
         )}
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-neutral-800">
+      <div className="flex border-b border-white/10">
         <button 
           onClick={() => { setActiveTab('global'); setAdminSelectedUserId(null); }}
           className={`flex-1 py-2 text-xs font-mono font-bold uppercase tracking-widest transition-colors cursor-pointer ${
-            activeTab === 'global' ? 'text-cyan-400 border-b-2 border-cyan-400 bg-cyan-950/10' : 'text-neutral-500 hover:bg-neutral-900'
+            activeTab === 'global' ? 'text-neon-cyan border-b-2 border-neon-cyan bg-neon-cyan/10 text-glow-cyan' : 'text-gray-500 hover:bg-white/5 hover:bg-white/10'
           }`}
         >
           Global
@@ -153,7 +153,7 @@ export const ChatBox: React.FC<ChatBoxProps> = ({ currentUser, inline = false })
         <button 
           onClick={() => { setActiveTab('private'); setAdminSelectedUserId(null); }}
           className={`flex-1 py-2 text-xs font-mono font-bold uppercase tracking-widest transition-colors cursor-pointer ${
-            activeTab === 'private' ? 'text-amber-400 border-b-2 border-amber-400 bg-amber-950/10' : 'text-neutral-500 hover:bg-neutral-900'
+            activeTab === 'private' ? 'text-gold-cabal border-b-2 border-gold-cabal bg-gold-cabal/10 text-glow-gold' : 'text-gray-500 hover:bg-white/5 hover:bg-white/10'
           }`}
         >
           Privado
@@ -170,20 +170,20 @@ export const ChatBox: React.FC<ChatBoxProps> = ({ currentUser, inline = false })
               // Admin Contacts List
               <div className="flex-1 overflow-y-auto p-2 space-y-1">
                 {adminPrivateContacts.length === 0 ? (
-                  <p className="text-center text-xs text-neutral-500 mt-10 font-mono">Nenhuma mensagem privada.</p>
+                  <p className="text-center text-xs text-gray-500 mt-10 font-mono">Nenhuma mensagem privada.</p>
                 ) : (
                   adminPrivateContacts.map(contact => (
                     <button
                       key={contact.userId}
                       onClick={() => setAdminSelectedUserId(contact.userId)}
-                      className="w-full p-3 flex items-center gap-3 bg-neutral-950 hover:bg-neutral-900 border border-neutral-800 rounded-xl transition-colors cursor-pointer text-left"
+                      className="w-full p-3 flex items-center gap-3 bg-white/5 hover:bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-colors cursor-pointer text-left"
                     >
                       <div className="w-8 h-8 rounded bg-amber-950/40 border border-amber-500/30 flex items-center justify-center shrink-0">
                         <UserIcon className="w-4 h-4 text-amber-400" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-bold text-neutral-200 truncate">{contact.nick}</p>
-                        <p className="text-[10px] text-neutral-500 truncate">{contact.lastMessage}</p>
+                        <p className="text-xs font-bold text-gray-200 truncate">{contact.nick}</p>
+                        <p className="text-[10px] text-gray-500 truncate">{contact.lastMessage}</p>
                       </div>
                     </button>
                   ))
@@ -192,10 +192,10 @@ export const ChatBox: React.FC<ChatBoxProps> = ({ currentUser, inline = false })
             ) : (
               // Admin DM with selected user
               <div className="flex-1 flex flex-col min-h-0">
-                <div className="p-2 border-b border-neutral-800 bg-neutral-950 flex items-center">
+                <div className="p-2 border-b border-white/10 bg-white/5 flex items-center">
                    <button 
                      onClick={() => setAdminSelectedUserId(null)}
-                     className="text-xs text-neutral-400 hover:text-white mr-2"
+                     className="text-xs text-gray-400 hover:text-white mr-2"
                    >
                      ← Voltar
                    </button>
@@ -213,23 +213,23 @@ export const ChatBox: React.FC<ChatBoxProps> = ({ currentUser, inline = false })
 
       {/* Input Area */}
       {!currentUser ? (
-        <div className="p-3 bg-neutral-950 border-t border-neutral-800 flex justify-center text-xs text-neutral-500 font-mono">
+        <div className="p-3 bg-white/5 border-t border-white/10 flex justify-center text-xs text-gray-500 font-mono">
           Faça login para participar do chat.
         </div>
       ) : (
         (activeTab === 'global' || (activeTab === 'private' && (currentUser?.role !== 'admin' || adminSelectedUserId))) && (
-          <form onSubmit={handleSend} className="p-3 bg-neutral-950 border-t border-neutral-800 flex gap-2">
+          <form onSubmit={handleSend} className="p-3 bg-white/5 border-t border-white/10 flex gap-2">
             <input
               type="text"
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder="Digite sua mensagem..."
-              className="flex-1 bg-[#0A0A0A] border border-neutral-800 rounded-lg px-3 py-2 text-xs text-neutral-200 focus:outline-none focus:border-cyan-500 transition-colors"
+              className="flex-1 glass-panel border border-white/10 rounded-lg px-3 py-2 text-xs text-gray-200 focus:outline-none focus:border-cyan-500 transition-colors"
             />
             <button 
               type="submit"
               disabled={!text.trim()}
-              className="p-2 bg-neutral-900 border border-neutral-800 rounded-lg text-cyan-400 hover:bg-neutral-800 hover:border-cyan-500 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-cyan-400 hover:glass-panel hover:border-cyan-500 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Send className="w-4 h-4" />
             </button>

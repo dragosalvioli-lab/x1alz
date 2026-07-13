@@ -1,4 +1,5 @@
-
+const fs = require('fs');
+const css = `
 @import "tailwindcss";
 
 @theme {
@@ -128,7 +129,5 @@
   background: rgba(0, 229, 255, 0.03);
   border-left: 2px solid var(--color-neon-cyan);
 }
-
-@keyframes shimmer {
-  100% { transform: translateX(100%); }
-}
+`;
+fs.writeFileSync('src/index.css', css);
